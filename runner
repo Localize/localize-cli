@@ -3,7 +3,7 @@
 
 """Convenience wrapper for running localize directly from source tree."""
 
-from localize.localize import main
+from src.localize import main
 
 if __name__ == '__main__':
   main()
