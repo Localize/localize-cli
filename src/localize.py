@@ -12,11 +12,6 @@ def get_configuration(args):
   with open(args.config, 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
-  for section in cfg:
-    print(section)
-
-  print(cfg['api'])
-
   return cfg
 
 def command(opts):

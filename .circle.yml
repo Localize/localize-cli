@@ -12,4 +12,4 @@ install: "python setup.py install"
 script: "python tests/bootstrap.py"
 
 notifications:
-    email: false
+  email: false
