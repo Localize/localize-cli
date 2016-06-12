@@ -75,7 +75,8 @@ def pull(conf):
     format=os.path.splitext(base)[1]
     data={
       'language': language,
-      'format': format.replace('.','').upper()
+      'format': format.replace('.','').upper(),
+      'filter': 'has-active-translations'
     }
 
     r = requests.get(url, headers=headers, verify=False, params=data, stream=True)
