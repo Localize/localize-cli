@@ -1,4 +1,2 @@
 include README.rst
-include LICENSE
-include *.md
-recursive-include docs *.md
+include LICENSE.txt
