@@ -1,18 +1,17 @@
 from setuptools import setup
 
 setup(
-  name="localize-cli",
+  name="localize",
   version="0.0.1",
   author='Localize',
   author_email='chris@localizejs.com',
   url='http://pypi.python.org/localize/localize-cli',
   download_url='https://github.com/localize/localize-cli',
-  packages=['localize-cli'],
-  description='Command line utiltiy for Localize .',
+  packages=['localize'],
+  description='Command line utiltiy for Localize.',
   install_requires=[
     "requests==2.10.0",
-    "colorama==0.3.1",
-    'pathtools==0.1.1'
+    "colorama==0.3.1"
   ],
   entry_points={
     'console_scripts': [
