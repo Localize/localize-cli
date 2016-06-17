@@ -1,5 +1,5 @@
 localize-cli
-=========
+============
 
 .. image:: https://circleci.com/gh/Localize/localize-cli/tree/master.svg?style=svg
    :target: https://circleci.com/gh/Localize/localize-cli/tree/master
