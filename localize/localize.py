@@ -17,7 +17,7 @@ def get_configuration(args):
   if not os.path.isfile(config_file):
     print(Fore.RED + 'No configuration file found! Run the following command to create one:' + Style.RESET_ALL)
     print('')
-    print('    localize init')
+    print('    localize config')
     print('')
     print('You can also create the file manually in your $HOME directory: $HOME/.localize/config.yml')
     print('')
