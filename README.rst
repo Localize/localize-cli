@@ -18,7 +18,7 @@ Platforms
 Installation
 ------------
 
-The easiest way to install localize-cli is to use `pip`_::
+The easiest way to install localize-cli is to use `pip`::
 
   $ pip install localize
 
@@ -40,7 +40,7 @@ you can run::
 
 
 This will install the localize package as well as all dependencies. You can
-also just `download the tarball`_.  Once you have the
+also just download the tarball`.  Once you have the
 localize directory structure on your workstation, you can just run::
 
   $ cd <path_to_localize>
