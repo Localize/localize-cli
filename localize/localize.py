@@ -44,7 +44,7 @@ def command(args):
 
 # Handle any command line arguments
 def parse_args():
-  p = argparse.ArgumentParser(description='Localize v0.0.2')
+  p = argparse.ArgumentParser(description='Localize v0.0.3')
   p.add_argument('command', nargs='?', help='an integer for the accumulator')
 
   args = p.parse_args()
