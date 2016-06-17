@@ -8,15 +8,45 @@ import time
 import requests
 import json
 
-from colorama import init, Fore, Back, Style
+from colorama import Fore, Back, Style
 
 def get_url(conf):
-  if conf['api']['dev']:
+  if 'dev' in conf['api']:
     base_url='http://localhost:8086/v2.0/projects/'
   else:
     base_url='https://api.localizejs.com/v2.0/projects/'
 
   return base_url+conf['api']['project']+'/resources'
+
+def config():
+  project = raw_input('Localize project key [None]: ')
+  token = raw_input('Localize API token [None]: ')
+
+  data = dict(
+    api = dict(
+      project = project,
+      token = token
+    ),
+    push = dict(
+      sources = [dict(file = '/full/path/to/your/file.language.format')]
+    ),
+    pull = dict(
+      sources = [dict(file = '/full/path/to/your/file.language.format')]
+    )
+  )
+
+  from os.path import expanduser
+  home = expanduser("~")
+  config_file = home + '/.localize/config.yml'
+
+  if not os.path.exists(os.path.dirname(config_file)):
+    try:
+      os.makedirs(os.path.dirname(config_file))
+    except OSError as exc: # Guard against race condition
+      if exc.errno != errno.EEXIST:
+        raise
+  with open(config_file, 'w+') as out:
+    out.write(yaml.dump(data, default_flow_style=False))
 
 def push(conf):
   errors = []
