@@ -31,7 +31,7 @@ def config():
       sources = [dict(file = '/full/path/to/your/file.language.format')]
     ),
     pull = dict(
-      sources = [dict(file = '/full/path/to/your/file.language.format')]
+      targets = [dict(file = '/full/path/to/your/file.language.format')]
     )
   )
 
