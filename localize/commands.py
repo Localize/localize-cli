@@ -92,7 +92,14 @@ def push(conf):
 
 def pull(conf):
   errors = []
+
+  if not 'targets' in conf['pull']:
+    sys.exit(Fore.RED + 'Could not find any targets to pull. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
+
   for target in conf['pull']['targets']:
+    if not target:
+      sys.exit(Fore.RED + 'Could not find target.' + Style.RESET_ALL)
+
     url = get_url(conf)
     headers={
       'Content-Type': 'application/json',
