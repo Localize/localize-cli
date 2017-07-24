@@ -71,7 +71,7 @@ def push(conf):
     language, format = check_and_return_lang_format(base, 'push')     # refactoring, extracting duplicate code into method
     data={
       'language': language,
-      'format': format.replace('yml','yaml').replace('.','').upper()  # replacing 'yml' file format to 'yaml'
+      'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
 
     r = requests.post(url, headers=headers, verify=False, data=data, files=content)
@@ -113,7 +113,7 @@ def pull(conf):
     language, format = check_and_return_lang_format(base, 'pull')        # refactoring, extracting duplicate code into method
     data={
       'language': language,
-      'format': format.replace('yml','yaml').replace('.','').upper(),    # replacing 'yml' file format to 'yaml
+      'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
       'filter': 'has-active-translations'
     }
 
