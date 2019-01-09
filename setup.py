@@ -10,8 +10,8 @@ setup(
   packages=['localize'],
   description='Command line utiltiy for Localize.',
   install_requires=[
-    "requests==2.10.0",
-    "colorama==0.3.1",
+    "requests==2.21.0",
+    "colorama==0.4.1",
     "pyyaml==3.11"
   ],
   entry_points={
