@@ -4,6 +4,9 @@ jobs:
     docker:
 `      - image: circleci/python:3.6.1
     working_directory: ~/repo
+    branches:
+      only:
+        - circleci-20-test
     steps:
       - checkout
       - restore_cache:
