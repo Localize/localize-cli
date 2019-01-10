@@ -9,12 +9,6 @@ jobs:
         - circleci-20-test
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
       - run:
           name: install dependencies
           command: |
@@ -22,18 +16,3 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-      
-      - run:
-          name: run tests
-          command: |
-            . venv/bin/activate
-            python manage.py test
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
-          
