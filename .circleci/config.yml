@@ -1,2 +1,6 @@
-# Config Translation Error
-# Could not find stored inference data.  Please run a build and try again.
+version: 2
+jobs:
+  build:
+    machine:
+      python:
+        version: 3.6.0
