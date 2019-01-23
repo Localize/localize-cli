@@ -7,9 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             pip install --user -r requirements.txt
+      - run:
+          name: Run tests
+          command: |
             python2.7 tests/bootstrap.py
             		
 
