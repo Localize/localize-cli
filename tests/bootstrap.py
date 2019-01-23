@@ -3,7 +3,7 @@
 import unittest
 import sys
 from unit.test_utils import TestUtils
-from unit.test_upload import TestUpload
+#from unit.test_upload import TestUpload
 
 def main ():
 	# Run the test suites
