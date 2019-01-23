@@ -12,3 +12,9 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+	    
+      - run:
+	 name: Exec tests
+	 command:
+	    python3 tests/bootstrap.py		
+
