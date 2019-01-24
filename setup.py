@@ -4,10 +4,9 @@ setup(
   name="localize",
   version="0.0.5",
   author='Localize',
-  author_email='chris@localizejs.com',
-  url='http://pypi.python.org/localize/localize-cli',
-  download_url='https://github.com/localize/localize-cli',
-  packages=['localize'],
+  author_email='brandon@localizejs.com',
+  url='https://help.localizejs.com/docs/localize-cli',
+  packages=setuptools.find_packages(),
   description='Command line utiltiy for Localize.',
   install_requires=[
     "requests==2.21.0",
