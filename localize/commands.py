@@ -2,13 +2,16 @@
 
 import sys
 import yaml
-import os 
+import os
 import argparse
 import time
 import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning  # suppressing 'Unverified HTTPS request' msg
 import json
 
 from colorama import Fore, Back, Style
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)       # suppressing 'Unverified HTTPS request' msg
 
 def get_url(conf):
   if 'dev' in conf['api']:
@@ -64,12 +67,11 @@ def push(conf):
     content={ 'content': file }
 
     # Use the file extension to guess the language and format
-    base=os.path.basename(source['file'])
-    language=os.path.splitext(base)[0]
-    format=os.path.splitext(base)[1]
+    base = os.path.basename(source['file'])
+    language, format = check_and_return_lang_format(base, 'push')     # refactoring, extracting duplicate code into method
     data={
       'language': language,
-      'format': format.replace('.','').upper()
+      'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
 
     r = requests.post(url, headers=headers, verify=False, data=data, files=content)
@@ -108,11 +110,10 @@ def pull(conf):
 
     # Use the file extension to guess the language and format
     base=os.path.basename(target['file'])
-    language=os.path.splitext(base)[0]
-    format=os.path.splitext(base)[1]
+    language, format = check_and_return_lang_format(base, 'pull')        # refactoring, extracting duplicate code into method
     data={
       'language': language,
-      'format': format.replace('.','').upper(),
+      'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
       'filter': 'has-active-translations'
     }
 
@@ -135,6 +136,12 @@ def pull(conf):
   # If there are any errors display them to the user
   if errors:
     for error in errors:
-      print(Fore.RED+error+Style.RESET_ALL)
+      print(Fore.RED + error + Style.RESET_ALL)
   else:
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])) + ' file(s) to Localize!' + Style.RESET_ALL)
+
+def check_and_return_lang_format(filename, type):
+  if filename.count('.') != 2:                      # checking filename, shoud be '<name>.<lang>.<format>', for example project_name.ru.json
+    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<name>.<language>.<format>', for example project_name.ru.json" + Style.RESET_ALL)
+  splitted_filename = filename.split('.')           # splitting filename by dot
+  return splitted_filename[1],splitted_filename[2]  # returning language and format
