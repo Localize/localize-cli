@@ -31,10 +31,10 @@ def config():
       token = token
     ),
     push = dict(
-      sources = [dict(file = '/full/path/to/your/file.language.format')]
+      sources = [dict(file = '/full/path/to/your/language_code.format_extension')]
     ),
     pull = dict(
-      targets = [dict(file = '/full/path/to/your/file.language.format')]
+      targets = [dict(file = '/full/path/to/your/language_code.format_extension')]
     )
   )
 
@@ -141,7 +141,7 @@ def pull(conf):
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])) + ' file(s) to Localize!' + Style.RESET_ALL)
 
 def check_and_return_lang_format(filename, type):
-  if filename.count('.') != 2:                      # checking filename, shoud be '<name>.<lang>.<format>', for example project_name.ru.json
-    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<name>.<language>.<format>', for example project_name.ru.json" + Style.RESET_ALL)
+  if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
+    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
   splitted_filename = filename.split('.')           # splitting filename by dot
-  return splitted_filename[1],splitted_filename[2]  # returning language and format
+  return splitted_filename[0],splitted_filename[1]  # returning language and format
