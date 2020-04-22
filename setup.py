@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
   name="localize",
@@ -6,7 +6,7 @@ setup(
   author='Localize',
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
-  packages=setuptools.find_packages(),
+  packages=find_packages(),
   description='Command line utiltiy for Localize.',
   install_requires=[
     "requests==2.21.0",
