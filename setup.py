@@ -1,5 +1,10 @@
 from setuptools import setup, find_packages
 
+# read the contents of your README file
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+
 setup(
   name="localize",
   version="1.0.1",
@@ -8,7 +13,7 @@ setup(
   url='https://help.localizejs.com/docs/localize-cli',
   packages=find_packages(),
   description='Command line utiltiy for Localize.',
-  long_description=read_file('README.rst'),
+  long_description=readme(),
   install_requires=[
     "requests==2.21.0",
     "colorama==0.4.1",
