@@ -14,7 +14,7 @@ Platforms
 Installation & Usage
 --------------------
 
-`For an installation and usage guide please refer to our `help docs <https://help.localizejs.com/docs/localize-cli>`_.
+For an installation and usage guide please refer to our `help docs <https://help.localizejs.com/docs/localize-cli>`_.
 
 ---------------
 Issues
