@@ -2,12 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
   name="localize",
-  version="1.0.0",
+  version="1.0.1",
   author='Localize',
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
   packages=find_packages(),
   description='Command line utiltiy for Localize.',
+  long_description=read_file('README.rst'),
   install_requires=[
     "requests==2.21.0",
     "colorama==0.4.1",
