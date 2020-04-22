@@ -1,10 +1,6 @@
 localize-cli
 ============
 
-.. image:: https://circleci.com/gh/Localize/localize-cli/tree/master.svg?style=svg
-   :target: https://circleci.com/gh/Localize/localize-cli/tree/master
-   :alt: Build Status
-
 This package provides a unified command line interface to Localize.
 
 Platforms
@@ -14,21 +10,14 @@ Platforms
 - Windows
 - Linux
 
-------------
-Installation
-------------
+--------------------
+Installation & Usage
+--------------------
 
-`Follow our installation guide. <https://github.com/Localize/localize-cli/wiki/Getting-Started#installation>`_
-
----------------
-Usage
----------------
-
-
-`Follow our usage guide. <https://github.com/Localize/localize-cli/wiki/Getting-Started#usage>`_
+`For an installation and usage guide please refer to our `help docs <https://help.localizejs.com/docs/localize-cli>`_.
 
 ---------------
 Issues
 ---------------
 
-If you have an issue, please look at our `Common Issues <https://github.com/Localize/localize-cli/wiki/Common-Issues>`_ for solutions first. If no solution is found, feel free to make an issue.
+If you have an issue, please look at our `Common Issues <https://github.com/Localize/localize-cli/wiki/Common-Issues>`_ for solutions first. If no solution is found, feel free to make an issue or contact `support <https://localizejs.com/company/contact>`_.
