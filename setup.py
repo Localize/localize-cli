@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name="localize",
-  version="0.0.7",
+  version="1.0.0",
   author='Localize',
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
