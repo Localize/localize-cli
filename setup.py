@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(
   name="localize",
-  version="0.0.5",
+  version="0.0.7",
   author='Localize',
-  author_email='brandon@localizejs.com',
+  author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
   packages=setuptools.find_packages(),
   description='Command line utiltiy for Localize.',
