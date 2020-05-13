@@ -1,0 +1,73 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+- Updated classifiers and dependencies
+
+## [1.0.1] - 2020-04-22
+## Added
+- Attempting to add in long description [#15](https://github.com/Localize/localize-cli/pull/15).
+- Updated setup.py [#14](https://github.com/Localize/localize-cli/pull/14).
+
+## [1.0.0] - 2020-04-22
+## Changed
+- Update README.rst [#12](https://github.com/Localize/localize-cli/pull/12)
+- Updated readme to redirect to docs [#11](https://github.com/Localize/localize-cli/pull/11)
+- Changed the file-format for push and pull [DEV-701] [#9](https://github.com/Localize/localize-cli/pull/9)
+
+## [0.0.7] - 2020-04-22
+## Changed
+- Update author email to support@localizejs.com, update version to match currently published [#10](https://github.com/Localize/localize-cli/pull/10)
+- Update setup.py [#7](https://github.com/Localize/localize-cli/pull/7)
+- Update config.yml [#8](https://github.com/Localize/localize-cli/pull/8)
+- made tests to run [#6](https://github.com/Localize/localize-cli/pull/6)
+- Refactoring [#4](https://github.com/Localize/localize-cli/pull/4)
+- upgrading dependencies [#5](https://github.com/Localize/localize-cli/pull/5)
+- Fix typo
+- Add error handling when no targets exist
+- Update README.rst
+- Merge pull request #2 from Localize/sources-to-targets
+
+## [0.0.5] - 2016-06-23
+## Changed
+- Update requirements
+- Update init file to be targets instead of sources.
+- Change init to config
+
+## [0.0.4] - 2016-06-18
+## Changed
+- Version bump
+- Fix underline
+
+## [0.0.3] - 2016-06-18
+## Changed
+- Version bump
+
+## [0.0.2] - 2016-06-18
+## Changed
+- Update version
+- Fix links
+- Update docs
+- Merge branch 'init-command'
+- Add the config command
+- Update files
+- Remove dep
+- Prepare package
+- Update readme
+- Set the filter to all active translations
+- Add pull command
+- Update ignore file
+- Remove config
+- Add push command
+- Merge branch 'master' of https://github.com/localize/localize-cli
+
+## [0.0.1] - 2016-06-01
+## Added
+- First commit
+- Initial commit
+
+
+

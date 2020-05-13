@@ -17,7 +17,7 @@ setup(
   install_requires=[
     "requests==2.21.0",
     "colorama==0.4.1",
-    "pyyaml==3.11"
+    "pyyaml==5.3.1"
   ],
   entry_points={
     'console_scripts': [
@@ -26,7 +26,7 @@ setup(
   },
   license = "MIT",
   platforms = "Posix; MacOS X; Windows",
-  classifiers = ["Development Status :: 4 - Beta",
+  classifiers = ["Development Status :: 5 - Production/Stable",
   	"Intended Audience :: Developers",
   	"License :: OSI Approved :: MIT License",
   	"Operating System :: OS Independent",
