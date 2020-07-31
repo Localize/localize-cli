@@ -53,22 +53,24 @@ def config():
 
 def push(conf):
   errors = []
+  format = conf['format']
   for source in conf['push']['sources']:
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
 
+    # Use the file extension to guess the language and format
+    base = os.path.basename(source['file'])
+    language = check_and_return_lang_format(base, 'push')     # refactoring, extracting duplicate code into method
+
     # Try and open the file
     try:
       file = open(source['file'], 'rb')
-    except (IOError, OSError) as e:
-      errors.append('Error: ' + str(e))
-      break;
+    except (IOError, OSError):
+      print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml')
+      continue
 
     content={ 'content': file }
 
-    # Use the file extension to guess the language and format
-    base = os.path.basename(source['file'])
-    language, format = check_and_return_lang_format(base, 'push')     # refactoring, extracting duplicate code into method
     data={
       'language': language,
       'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
@@ -98,6 +100,9 @@ def pull(conf):
   if not 'targets' in conf['pull']:
     sys.exit(Fore.RED + 'Could not find any targets to pull. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
 
+  format = conf['format']
+  print('format' + format)
+
   for target in conf['pull']['targets']:
     if not target:
       sys.exit(Fore.RED + 'Could not find target.' + Style.RESET_ALL)
@@ -107,10 +112,16 @@ def pull(conf):
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + conf['api']['token'] 
     }
-
+    print('target', target.keys(), target.values())
+    file = target.values()[0]
     # Use the file extension to guess the language and format
-    base=os.path.basename(target['file'])
-    language, format = check_and_return_lang_format(base, 'pull')        # refactoring, extracting duplicate code into method
+    # print('target' + target['file'])
+    # base=os.path.basename(file)
+    # print('base' + base)
+    language = target.keys()[0]
+    # language = check_and_return_lang_format(base, 'pull')        # refactoring, extracting duplicate code into method
+    # format = target['file'].split(',')[1]
+    print('language' + language + 'format' + format, format.replace('yml','yaml').upper())
     data={
       'language': language,
       'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
@@ -118,20 +129,23 @@ def pull(conf):
     }
 
     r = requests.get(url, headers=headers, verify=False, params=data, stream=True)
-
+    print('r', r)
     if r.status_code != 200:
       message = 'Something went wrong. Please contact support.'
       res = json.loads(r.text)
       if res['meta']['error']['message']:
-        message = res['meta']['error']['message'] + ' for file ' + target['file']
+        message = res['meta']['error']['message'] + ' for file ' + file
 
       errors.append(message)
     else:
       # Swap put the content of the file with the data
-      with open(target['file'], 'wb') as file:
-        for chunk in r.iter_content(chunk_size=1024): 
-          if chunk: # filter out keep-alive new chunks
-            file.write(chunk)
+      try:
+        with open(file, 'wb') as file:
+          for chunk in r.iter_content(chunk_size=1024): 
+            if chunk: # filter out keep-alive new chunks
+              file.write(chunk)
+      except IOError:
+        print(Fore.RED + 'Skipping export of ' + language + '. No target file path in the localize cli config.yml')
 
   # If there are any errors display them to the user
   if errors:
@@ -141,7 +155,7 @@ def pull(conf):
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])) + ' file(s) to Localize!' + Style.RESET_ALL)
 
 def check_and_return_lang_format(filename, type):
-  if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
-    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
+  # if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
+    # sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
   splitted_filename = filename.split('.')           # splitting filename by dot
-  return splitted_filename[0],splitted_filename[1]  # returning language and format
+  return splitted_filename[0]  # returning language and format
