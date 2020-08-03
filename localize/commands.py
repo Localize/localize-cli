@@ -30,11 +30,12 @@ def config():
       project = project,
       token = token
     ),
+    format = 'format',
     push = dict(
       sources = [dict(file = '/full/path/to/your/language_code.format_extension')]
     ),
     pull = dict(
-      targets = [dict(file = '/full/path/to/your/language_code.format_extension')]
+      targets = [dict(language_code = '/full/path/to/your/file_name.extension')]
     )
   )
 
@@ -54,6 +55,7 @@ def config():
 def push(conf):
   errors = []
   format = conf['format']
+  skip = 0
   for source in conf['push']['sources']:
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
@@ -66,6 +68,7 @@ def push(conf):
     try:
       file = open(source['file'], 'rb')
     except (IOError, OSError):
+      skip =+ 1
       print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml')
       continue
 
@@ -92,7 +95,7 @@ def push(conf):
     for error in errors:
       print(Fore.RED+error+Style.RESET_ALL)
   else:
-    sys.exit(Fore.GREEN + 'Successfully pushed ' + str(len(conf['push']['sources'])) + ' file(s) to Localize!' + Style.RESET_ALL)
+    sys.exit(Fore.GREEN + 'Successfully pushed ' + str(len(conf['push']['sources'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
 
 def pull(conf):
   errors = []
@@ -101,7 +104,7 @@ def pull(conf):
     sys.exit(Fore.RED + 'Could not find any targets to pull. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
 
   format = conf['format']
-  print('format' + format)
+  skip = 0
 
   for target in conf['pull']['targets']:
     if not target:
@@ -112,7 +115,7 @@ def pull(conf):
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + conf['api']['token'] 
     }
-    print('target', target.keys(), target.values())
+
     file = target.values()[0]
     # Use the file extension to guess the language and format
     # print('target' + target['file'])
@@ -121,7 +124,7 @@ def pull(conf):
     language = target.keys()[0]
     # language = check_and_return_lang_format(base, 'pull')        # refactoring, extracting duplicate code into method
     # format = target['file'].split(',')[1]
-    print('language' + language + 'format' + format, format.replace('yml','yaml').upper())
+
     data={
       'language': language,
       'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
@@ -129,7 +132,7 @@ def pull(conf):
     }
 
     r = requests.get(url, headers=headers, verify=False, params=data, stream=True)
-    print('r', r)
+
     if r.status_code != 200:
       message = 'Something went wrong. Please contact support.'
       res = json.loads(r.text)
@@ -145,6 +148,7 @@ def pull(conf):
             if chunk: # filter out keep-alive new chunks
               file.write(chunk)
       except IOError:
+        skip =+ 1
         print(Fore.RED + 'Skipping export of ' + language + '. No target file path in the localize cli config.yml')
 
   # If there are any errors display them to the user
@@ -152,7 +156,7 @@ def pull(conf):
     for error in errors:
       print(Fore.RED + error + Style.RESET_ALL)
   else:
-    sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])) + ' file(s) to Localize!' + Style.RESET_ALL)
+    sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
 
 def check_and_return_lang_format(filename, type):
   # if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
