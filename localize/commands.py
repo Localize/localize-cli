@@ -60,7 +60,7 @@ def push(conf):
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
 
-    # Use the file extension to guess the language and format
+    # Use the file extension to guess the language
     base = os.path.basename(source['file'])
     language = check_and_return_lang_format(base, 'push')     # refactoring, extracting duplicate code into method
 
@@ -117,13 +117,9 @@ def pull(conf):
     }
 
     file = target.values()[0]
-    # Use the file extension to guess the language and format
-    # print('target' + target['file'])
-    # base=os.path.basename(file)
-    # print('base' + base)
+
+    # Use the key as the language
     language = target.keys()[0]
-    # language = check_and_return_lang_format(base, 'pull')        # refactoring, extracting duplicate code into method
-    # format = target['file'].split(',')[1]
 
     data={
       'language': language,
@@ -159,7 +155,7 @@ def pull(conf):
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
 
 def check_and_return_lang_format(filename, type):
-  # if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
-    # sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
+  if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
+    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
   splitted_filename = filename.split('.')           # splitting filename by dot
   return splitted_filename[0]  # returning language and format
