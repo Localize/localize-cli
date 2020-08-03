@@ -158,4 +158,4 @@ def check_and_return_lang_format(filename, type):
   if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
     sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
   splitted_filename = filename.split('.')           # splitting filename by dot
-  return splitted_filename[0]  # returning language and format
+  return splitted_filename[0]  # returning language
