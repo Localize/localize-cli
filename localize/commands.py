@@ -113,7 +113,7 @@ def pull(conf):
     url = get_url(conf)
     headers={
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + conf['api']['token'] 
+      'Authorization': 'Bearer ' + conf['api']['token']
     }
 
     file = target.values()[0]
@@ -140,7 +140,7 @@ def pull(conf):
       # Swap put the content of the file with the data
       try:
         with open(file, 'wb') as file:
-          for chunk in r.iter_content(chunk_size=1024): 
+          for chunk in r.iter_content(chunk_size=1024):
             if chunk: # filter out keep-alive new chunks
               file.write(chunk)
       except IOError:
@@ -152,7 +152,7 @@ def pull(conf):
     for error in errors:
       print(Fore.RED + error + Style.RESET_ALL)
   else:
-    sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
+    sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) from Localize!' + Style.RESET_ALL)
 
 def check_and_return_lang_format(filename, type):
   if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
