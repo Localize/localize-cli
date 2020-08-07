@@ -7,7 +7,7 @@ def readme():
 
 setup(
   name="localize",
-  version="1.0.2",
+  version="1.0.3",
   author='Localize',
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
