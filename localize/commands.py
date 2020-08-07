@@ -152,7 +152,7 @@ def pull(conf):
   if errors:
     for error in errors:
       print(Fore.RED + error + Style.RESET_ALL)
-
+  else:
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) from Localize!' + Style.RESET_ALL)
 
 def check_and_return_lang_format(filename, type):
