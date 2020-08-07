@@ -2,7 +2,7 @@
 
 import sys
 import yaml
-import os 
+import os
 import argparse
 import time
 from colorama import init, Fore, Back, Style
@@ -24,7 +24,7 @@ def get_configuration(args):
     sys.exit()
 
   with open(config_file, 'r') as ymlfile:
-    cfg = yaml.load(ymlfile)
+    cfg = yaml.safe_load(ymlfile)
 
   return cfg
 
@@ -48,21 +48,21 @@ def parse_args():
   p.add_argument('command', nargs='?', help='an integer for the accumulator')
 
   args = p.parse_args()
-  
+
   return args
 
 def main():
-  # the call to init() will start filtering ANSI escape sequences out of any text sent to 
+  # the call to init() will start filtering ANSI escape sequences out of any text sent to
   # stdout or stderr, and will replace them with equivalent Win32 calls.
   init(autoreset=True)
 
   # Checks the command line arguments
   args = parse_args()
-  
+
   # Run the command
   command(args)
 
 
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
   main()
