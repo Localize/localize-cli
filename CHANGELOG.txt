@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.6] - 2020-10-20
 ## Added
-- Added support for optional file formats [#18](https://google.com).
+- Added support for optional file formats [#19](https://google.com).
 
 ## [1.0.3] - 2020-08-07
 ## Added
