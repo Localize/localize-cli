@@ -54,11 +54,15 @@ def config():
 
 def push(conf):
   errors = []
-  format = conf['format']
   skip = 0
   for source in conf['push']['sources']:
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
+
+    if 'format' in source:
+      format = source['format']
+    else:
+      format = conf['format']
 
     # Use the file extension to guess the language
     base = os.path.basename(source['file'])
@@ -103,7 +107,6 @@ def pull(conf):
   if not 'targets' in conf['pull']:
     sys.exit(Fore.RED + 'Could not find any targets to pull. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
 
-  format = conf['format']
   skip = 0
 
   for target in conf['pull']['targets']:
@@ -115,6 +118,11 @@ def pull(conf):
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + conf['api']['token']
     }
+
+    if 'format' in target:
+      format = target['format']
+    else:
+      format = conf['format']
 
     file = target.values()[0]
 
