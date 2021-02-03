@@ -66,7 +66,6 @@ def push(conf):
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
 
-    #
     if 'format' in source:
       format = source['format']
     else:
