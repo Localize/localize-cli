@@ -55,10 +55,18 @@ def config():
 def push(conf):
   errors = []
   skip = 0
+
+  # Assume pushing phrases unless specified in config_file
+  if 'type' in conf:
+    type = conf['type']
+  else:
+    type = 'phrase'
+
   for source in conf['push']['sources']:
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
 
+    #
     if 'format' in source:
       format = source['format']
     else:
@@ -80,6 +88,7 @@ def push(conf):
 
     data={
       'language': language,
+      'type': type,
       'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
 
@@ -109,6 +118,12 @@ def pull(conf):
 
   skip = 0
 
+  # Assume pulling phrases unless specified in config_file
+  if 'type' in conf:
+    type = conf['type']
+  else:
+    type = 'phrase'
+
   for target in conf['pull']['targets']:
     if not target:
       sys.exit(Fore.RED + 'Could not find target.' + Style.RESET_ALL)
@@ -131,6 +146,7 @@ def pull(conf):
 
     data={
       'language': language,
+      'type': type,
       'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
       'filter': 'has-active-translations'
     }
