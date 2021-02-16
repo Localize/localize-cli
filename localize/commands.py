@@ -88,6 +88,7 @@ def push(conf):
     data={
       'language': language,
       'type': type,
+      'origin': 'cli',
       'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
 
