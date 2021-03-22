@@ -31,6 +31,7 @@ def config():
       token = token
     ),
     format = 'format',
+    type = 'phrase',
     push = dict(
       sources = [dict(file = '/full/path/to/your/language_code.format_extension')]
     ),
