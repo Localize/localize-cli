@@ -46,3 +46,23 @@ class TestUtils (unittest.TestCase):
 		expected = ('http://localhost:8086/v2.0/projects/somekey/resources')
 		self.assertEqual(actual, expected)
 
+	def test_push (self):
+		print(os.getcwd())
+		push_path = os.getcwd() + '/unit/test_files/fr.json'
+		print(push_path)
+		data = dict(
+			api = dict(
+				project = 'LaHtKc8QETpCK',
+				token = 'bfdb2a80531475f2111a5b64d695d214',
+				dev = 'dev',
+			),
+			format = 'json',
+			push = dict(
+				sources = [dict(file = push_path)]
+			),
+			pull = dict(
+				targets = [dict(language_code = '/full/path/to/your/file_name.extension')]
+			)
+  		)
+		push(data)
+
