@@ -180,8 +180,8 @@ def pull(conf):
   else:
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) from Localize!' + Style.RESET_ALL)
 
-def check_and_return_lang_format(filename, type):
+def check_and_return_lang_format(filename, methodType):
   if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
-    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
+    sys.exit(Fore.RED + "Wrong filename for '" + methodType + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
   splitted_filename = filename.split('.')           # splitting filename by dot
   return splitted_filename[0]  # returning language
