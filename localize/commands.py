@@ -59,9 +59,9 @@ def push(conf):
 
   # Assume pushing phrases unless specified in config_file
   if 'type' in conf:
-    phraseType = conf['type']
+    type = conf['type']
   else:
-    phraseType = 'phrase'
+    type = 'phrase'
 
   for source in conf['push']['sources']:
     url = get_url(conf)
@@ -88,7 +88,7 @@ def push(conf):
 
     data={
       'language': language,
-      'type': phraseType,
+      'type': type,
       'origin': 'cli',
       'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
@@ -121,9 +121,9 @@ def pull(conf):
 
   # Assume pulling phrases unless specified in config_file
   if 'type' in conf:
-    phraseType = conf['type']
+    type = conf['type']
   else:
-    phraseType = 'phrase'
+    type = 'phrase'
 
   for target in conf['pull']['targets']:
     if not target:
@@ -147,7 +147,7 @@ def pull(conf):
 
     data={
       'language': language,
-      'type': phraseType,
+      'type': type,
       'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
       'filter': 'has-active-translations'
     }
@@ -180,8 +180,8 @@ def pull(conf):
   else:
     sys.exit(Fore.GREEN + 'Successfully pulled ' + str(len(conf['pull']['targets'])-skip) + ' file(s) from Localize!' + Style.RESET_ALL)
 
-def check_and_return_lang_format(filename, methodType):
+def check_and_return_lang_format(filename, type):
   if filename.count('.') != 1:                      # checking filename, shoud be '<lang>.<format>', for example ru.json, es.csv
-    sys.exit(Fore.RED + "Wrong filename for '" + methodType + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
+    sys.exit(Fore.RED + "Wrong filename for '" + type + "' type, target file have to has the following file format '<language>.<format>', for example ru.json" + Style.RESET_ALL)
   splitted_filename = filename.split('.')           # splitting filename by dot
   return splitted_filename[0]  # returning language
