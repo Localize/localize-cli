@@ -57,6 +57,7 @@ class TestUtils (unittest.TestCase):
 				token = 'bfdb2a80531475f2111a5b64d695d214',
 				dev = 'dev',
 			),
+			type = 'phrase',
 			format = 'json',
 			push = dict(
 				sources = [dict(file = push_path)]

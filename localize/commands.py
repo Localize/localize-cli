@@ -59,9 +59,9 @@ def push(conf):
 
   # Assume pushing phrases unless specified in config_file
   if 'type' in conf:
-    type = conf['type']
+    phraseType = conf['type']
   else:
-    type = 'phrase'
+    phraseType = 'phrase'
 
   for source in conf['push']['sources']:
     url = get_url(conf)
@@ -88,7 +88,7 @@ def push(conf):
 
     data={
       'language': language,
-      'type': type,
+      'type': phraseType,
       'origin': 'cli',
       'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
@@ -121,9 +121,9 @@ def pull(conf):
 
   # Assume pulling phrases unless specified in config_file
   if 'type' in conf:
-    type = conf['type']
+    phraseType = conf['type']
   else:
-    type = 'phrase'
+    phraseType = 'phrase'
 
   for target in conf['pull']['targets']:
     if not target:
@@ -147,7 +147,7 @@ def pull(conf):
 
     data={
       'language': language,
-      'type': type,
+      'type': phraseType,
       'format': format.replace('yml','yaml').upper(),    # replacing 'yml' file format to 'yaml
       'filter': 'has-active-translations'
     }
