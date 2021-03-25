@@ -1,4 +1,5 @@
 import unittest
+import StringIO
 import sys
 import os
 import argparse
@@ -64,5 +65,10 @@ class TestUtils (unittest.TestCase):
 				targets = [dict(language_code = '/full/path/to/your/file_name.extension')]
 			)
   		)
+		capturedOutput = StringIO.StringIO()
+		sys.stdout = capturedOutput                 
 		push(data)
-
+		sys.stdout = sys.__stdout__
+		actual = capturedOutput.getvalue()
+		expected = 'ValidationError: "type" is required for file'
+		self.assertTrue(expected in actual)
