@@ -69,7 +69,6 @@ class TestPush (unittest.TestCase):
         expected = 'Successfully pushed 0 file(s) to Localize'
         self.assertTrue(expected in SystemExitMessage.exception.args[0])
     
-    @patch('builtins.open', mock_open(read_data="data"))
     def test_push_with_correct_data (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
         config = {
@@ -88,8 +87,11 @@ class TestPush (unittest.TestCase):
             },
             'type': 'phrase',
         } 
-        
+
+        def mocked_open(self, *args, **kwargs):
+            return opener(self, *args, **kwargs)
         with self.assertRaises(SystemExit) as SystemExitMessage:
             push(config)
-        expected = 'Successfully pushed 1 file(s) to Localize'
-        self.assertTrue(expected in SystemExitMessage.exception.args[0])
+            print(SystemExitMessage.exception.args[0])
+            expected = 'Successfully pushed 1 file(s) to Localize'
+            self.assertTrue(expected in SystemExitMessage.exception.args[0])
