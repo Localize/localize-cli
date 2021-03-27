@@ -11,7 +11,7 @@ jobs:
           command: pip install --user -r requirements.txt
       - run:
           name: Mock
-          command: pip install mock
+          command: pip install --user -r mock
       - run:
           name: Run tests
           command: python2.7 tests/bootstrap.py
