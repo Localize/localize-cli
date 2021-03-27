@@ -12,6 +12,9 @@ jobs:
       - run:
           name: Run tests
           command: python2.7 tests/bootstrap.py
+      - run:
+          name: Mock
+          command: pip install mock
 workflows:
   version: 2
   build_and_test:
