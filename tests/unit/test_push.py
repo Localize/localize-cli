@@ -62,10 +62,12 @@ class TestPush (unittest.TestCase):
             'type': 'phrase',
         }
 
-        with self.assertRaises(SystemExit):
+        with self.assertRaises(SystemExit) as SystemExitMessage:
             push(config)
+        expected = 'Successfully pushed 0 file(s) to Localize'
+        self.assertTrue(expected in SystemExitMessage.exception.args[0])
     
-    def test_push_with_correct_data_case_1 (self):
+    def test_push_with_correct_data (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
         config = {
             'api': {
@@ -88,69 +90,3 @@ class TestPush (unittest.TestCase):
             push(config)
         expected = 'Successfully pushed 1 file(s) to Localize'
         self.assertTrue(expected in SystemExitMessage.exception.args[0])
-
-    def test_push_with_correct_data_case_2 (self):
-        push_path = os.getcwd() + '/unit/test_files/fr.json'
-        config = {
-            'api': {
-                'project': test_config.project,
-                'token': test_config.token,
-                test_config.environment: True,
-            },
-            'format': 'JSON',
-            'push': {
-                'sources': [
-                    { 
-                        'file' : push_path,
-                    }, 
-                    {
-                        'file' : push_path,
-                    },
-                ]
-            },
-            'type': 'phrase',
-        }    
-
-        with self.assertRaises(SystemExit) as SystemExitMessage:
-            push(config)
-        expected = 'Successfully pushed 2 file(s) to Localize'
-        self.assertTrue(expected in SystemExitMessage.exception.args[0])
-    
-    def test_push_with_unsupported_file_format (self):
-        push_path = os.getcwd() + '/unit/test_files/fr.json'
-        config = {
-            'api': {
-                'project': test_config.project,
-                'token': test_config.token,
-                test_config.environment: True,
-            },
-            'push': {
-                'sources': [
-                    { 
-                        'file' : push_path,
-                        'format': 'JSON' 
-                    },
-                    { 
-                        'file' : push_path,
-                        'format': 'IOS_STRINGS'
-                    },
-                ]
-            },
-            'type': 'phrase',
-        }
-
-        if test_config.environment is 'dev':
-            capturedOutput = StringIO.StringIO()
-            sys.stdout = capturedOutput                 
-            push(config)
-            sys.stdout = sys.__stdout__
-            actual = capturedOutput.getvalue()
-            expected = 'File format not supported for web project'
-            self.assertTrue(expected in actual)
-        else:
-            with self.assertRaises(SystemExit) as SystemExitMessage:
-                push(config)
-            expected = 'Successfully pushed 1 file(s) to Localize'
-            self.assertTrue(expected in SystemExitMessage.exception.args[0])
-
-
