@@ -114,16 +114,23 @@ class TestPush (unittest.TestCase):
                 ]
             },
             'type': 'phrase',
-        } 
+        }
 
         #mock open for circle cli
         def mocked_open(self, *args, **kwargs):
             return opener(self, *args, **kwargs)
         
-        capturedOutput = StringIO.StringIO()
-        sys.stdout = capturedOutput                 
-        push(config)
-        sys.stdout = sys.__stdout__
-        actual = capturedOutput.getvalue()
-        expected = 'File format not supported for web project'
-        self.assertTrue(expected in actual)
+        if test_config.environment is 'dev':
+            capturedOutput = StringIO.StringIO()
+            sys.stdout = capturedOutput                 
+            push(config)
+            sys.stdout = sys.__stdout__
+            actual = capturedOutput.getvalue()
+            expected = 'File format not supported for web project'
+            self.assertTrue(expected in actual)
+        else:
+            with self.assertRaises(SystemExit) as SystemExitMessage:
+                push(config)
+                print(SystemExitMessage.exception.args[0])
+                expected = 'Successfully pushed 1 file(s) to Localize'
+                self.assertTrue(expected in SystemExitMessage.exception.args[0])
