@@ -6,6 +6,8 @@ import argparse
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
+from mock import patch, mock_open
+
 
 class TestPush (unittest.TestCase):
 
@@ -67,6 +69,7 @@ class TestPush (unittest.TestCase):
         expected = 'Successfully pushed 0 file(s) to Localize'
         self.assertTrue(expected in SystemExitMessage.exception.args[0])
     
+    @patch('builtins.open', mock_open(read_data="data"))
     def test_push_with_correct_data (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
         config = {
@@ -84,8 +87,8 @@ class TestPush (unittest.TestCase):
                 ]
             },
             'type': 'phrase',
-        }    
-
+        } 
+        
         with self.assertRaises(SystemExit) as SystemExitMessage:
             push(config)
         expected = 'Successfully pushed 1 file(s) to Localize'
