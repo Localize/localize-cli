@@ -3,7 +3,7 @@ Installation
 
 We **highly** recommend using `virtualenv` to install `localize`.
 
-You must have python 3.x or higher. If you 
+You must have python 2.7.x or higher. If you 
 have `pip`_ already installed on your system you can run the following
 command to install `localize`:
 

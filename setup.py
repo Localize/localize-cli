@@ -31,6 +31,6 @@ setup(
   	"License :: OSI Approved :: MIT License",
   	"Operating System :: OS Independent",
   	"Topic :: Internet",
-  	"Programming Language :: Python :: 3.8"
+  	"Programming Language :: Python :: 2.7"
   ]
 )

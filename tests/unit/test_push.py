@@ -1,7 +1,7 @@
 import unittest
 import sys
 import os
-import io
+import StringIO
 import argparse
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
@@ -85,15 +85,15 @@ class TestPush (unittest.TestCase):
         with self.assertRaises(SystemExit):
             push(config)
     
-    def test_push_with_wrong_format (self):
-        push_path = os.getcwd() + '/unit/test_files/es.json'
+    def test_push_with_unsupported_format (self):
+        push_path = os.getcwd() + '/unit/test_files/fr.strings'
         config = {
             'api': {
                 'project': test_config.project,
                 'token': test_config.token,
                 test_config.environment: True,
             },
-            'format': 'XML',
+            'format': 'IOS_STRINGS',
             'push': {
                 'sources': [
                     { 'file' : push_path },
@@ -102,10 +102,10 @@ class TestPush (unittest.TestCase):
             'type': 'phrase',
         }
 
-        capturedOutput = io.StringIO()
+        capturedOutput = StringIO.StringIO()
         sys.stdout = capturedOutput                 
         push(config)
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
-        expected = 'File format mismatch for file'
+        expected = 'File format not supported for web project'
         self.assertTrue(expected in actual)
