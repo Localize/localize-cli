@@ -11,7 +11,7 @@ def main ():
 	# Run the test suites
 	util1= unittest.TestLoader().loadTestsFromTestCase(TestUtils)
 	util2= unittest.TestLoader().loadTestsFromTestCase(TestPush)
-	util3= unittest.TestLoader().loadTestsFromTestCase(TestPush)
+	util3= unittest.TestLoader().loadTestsFromTestCase(TestGetUrl)
 	unittest.TestSuite([util1, util2, util3])
 	unittest.main()
 	
