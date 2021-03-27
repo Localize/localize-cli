@@ -99,12 +99,12 @@ class TestPush (unittest.TestCase):
                 'sources': [
                     { 
                         'file' : push_path,
-                        'format': 'IOS_STRINGS'
+                        'format': 'JSON' 
                     },
                     { 
                         'file' : push_path,
-                        'format': 'JSON' 
-                    }
+                        'format': 'IOS_STRINGS'
+                    },
                 ]
             },
             'type': 'phrase',
@@ -117,3 +117,4 @@ class TestPush (unittest.TestCase):
         actual = capturedOutput.getvalue()
         expected = 'File format not supported for web project'
         self.assertTrue(expected in actual)
+
