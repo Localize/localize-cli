@@ -37,7 +37,7 @@ class TestPush (unittest.TestCase):
                 'token': test_config.token,
                 test_config.environment: True,
             },
-            'format': 'CSV',
+            'format': 'XML',
             'push': {
                 'sources': [
                     { 'file' : push_path },
