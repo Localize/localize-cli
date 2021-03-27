@@ -9,26 +9,6 @@ from localize.commands import *
 
 class TestPush (unittest.TestCase):
 
-    def test_push_with_correct_data (self):
-        push_path = os.getcwd() + '/unit/test_files/fr.json'
-        config = {
-            'api': {
-                'project': test_config.project,
-                'token': test_config.token,
-                test_config.environment: True,
-            },
-            'format': 'JSON',
-            'push': {
-                'sources': [
-                    { 'file' : push_path },
-                ]
-            },
-            'type': 'phrase',
-        }
-
-        with self.assertRaises(SystemExit):
-            push(config)
-
     def test_push_missing_token (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
         config = {
@@ -109,3 +89,23 @@ class TestPush (unittest.TestCase):
         actual = capturedOutput.getvalue()
         expected = 'File format not supported for web project'
         self.assertTrue(expected in actual)
+    
+    def test_push_with_correct_data (self):
+        push_path = os.getcwd() + '/unit/test_files/fr.json'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'push': {
+                'sources': [
+                    { 'file' : push_path },
+                ]
+            },
+            'type': 'phrase',
+        }
+
+        with self.assertRaises(SystemExit):
+            push(config)
