@@ -29,31 +29,6 @@ class TestPush (unittest.TestCase):
         with self.assertRaises(SystemExit):
             push(config)
 
-    def test_push_with_wrong_format (self):
-        push_path = os.getcwd() + '/unit/test_files/es.json'
-        config = {
-            'api': {
-                'project': test_config.project,
-                'token': test_config.token,
-                test_config.environment: True,
-            },
-            'format': 'XML',
-            'push': {
-                'sources': [
-                    { 'file' : push_path },
-                ]
-            },
-            'type': 'phrase',
-        }
-
-        capturedOutput = StringIO.StringIO()
-        sys.stdout = capturedOutput                 
-        push(config)
-        sys.stdout = sys.__stdout__
-        actual = capturedOutput.getvalue()
-        expected = 'File format mismatch for file'
-        self.assertTrue(expected in actual)
-
     def test_push_missing_token (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
         config = {
