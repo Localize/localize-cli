@@ -1,5 +1,4 @@
 import unittest
-import StringIO
 import sys
 import os
 import argparse

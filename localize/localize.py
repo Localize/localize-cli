@@ -6,7 +6,7 @@ import os
 import argparse
 import time
 from colorama import init, Fore, Back, Style
-from commands import *
+import localize.commands
 
 def get_configuration(args):
   from os.path import expanduser

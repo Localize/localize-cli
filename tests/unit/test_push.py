@@ -1,9 +1,9 @@
 import unittest
-import StringIO
 import sys
 import os
+import io
 import argparse
-import test_config
+import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
 
@@ -84,3 +84,28 @@ class TestPush (unittest.TestCase):
 
         with self.assertRaises(SystemExit):
             push(config)
+    
+    def test_push_with_wrong_format (self):
+        push_path = os.getcwd() + '/unit/test_files/fr.json'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'XML',
+            'push': {
+                'sources': [
+                    { 'file' : push_path },
+                ]
+            },
+            'type': 'phrase',
+        }
+
+        capturedOutput = io.StringIO()
+        sys.stdout = capturedOutput                 
+        push(config)
+        sys.stdout = sys.__stdout__
+        actual = capturedOutput.getvalue()
+        expected = 'File format mismatch for file'
+        self.assertTrue(expected in actual)
