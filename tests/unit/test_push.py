@@ -15,6 +15,7 @@ class TestPush (unittest.TestCase):
             'api': {
                 'project': test_config.project,
                 'token': test_config.token,
+                test_config.environment: True,
             },
             'format': 'JSON',
             'push': {
@@ -24,10 +25,6 @@ class TestPush (unittest.TestCase):
             },
             'type': 'phrase',
         }
-        if test_config.environment is 'dev':
-            config['api']['dev'] = 'dev'
-        else:
-            config['api']['staging'] = 'staging'
 
         with self.assertRaises(SystemExit):
             push(config)
@@ -38,6 +35,7 @@ class TestPush (unittest.TestCase):
             'api': {
                 'project': test_config.project,
                 'token': test_config.token,
+                test_config.environment: True,
             },
             'format': 'CSV',
             'push': {
@@ -47,11 +45,6 @@ class TestPush (unittest.TestCase):
             },
             'type': 'phrase',
         }
-
-        if test_config.environment is 'dev':
-            config['api']['dev'] = 'dev'
-        else:
-            config['api']['staging'] = 'staging'
 
         capturedOutput = StringIO.StringIO()
         sys.stdout = capturedOutput                 
@@ -66,6 +59,7 @@ class TestPush (unittest.TestCase):
         config = {
             'api': {
                 'project': test_config.project,
+                test_config.environment: True,
             },
             'format': 'JSON',
             'push': {
@@ -75,11 +69,6 @@ class TestPush (unittest.TestCase):
             },
             'type': 'phrase',
         }
-
-        if test_config.environment is 'dev':
-            config['api']['dev'] = 'dev'
-        else:
-            config['api']['staging'] = 'staging'
 
         with self.assertRaises(KeyError):
             push(config)
@@ -89,6 +78,7 @@ class TestPush (unittest.TestCase):
         config = {
             'api': {
                 'token': test_config.token,
+                test_config.environment: True,
             },
             'format': 'JSON',
             'push': {
@@ -99,11 +89,6 @@ class TestPush (unittest.TestCase):
             'type': 'phrase',
         }
 
-        if test_config.environment is 'dev':
-            config['api']['dev'] = 'dev'
-        else:
-            config['api']['staging'] = 'staging'
-
         with self.assertRaises(KeyError):
             push(config)
 
@@ -112,7 +97,7 @@ class TestPush (unittest.TestCase):
             'api': {
                 'project': test_config.project,
                 'token': test_config.token,
-                'dev': 'dev',
+                test_config.environment: True,
             },
             'format': 'JSON',
             'push': {
@@ -121,11 +106,6 @@ class TestPush (unittest.TestCase):
             },
             'type': 'phrase',
         }
-
-        if test_config.environment is 'dev':
-            config['api']['dev'] = 'dev'
-        else:
-            config['api']['staging'] = 'staging'
 
         with self.assertRaises(SystemExit):
             push(config)

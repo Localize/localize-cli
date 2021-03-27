@@ -24,9 +24,21 @@ class TestGetUrl (unittest.TestCase):
 			'api': {
 				'project': 'somekey',
 				'token': 'sometoken',
-				'dev': 'dev',
+				'dev': True,
 			}
 		}
 		actual = get_url(config)
 		expected = ('http://localhost:8086/v2.0/projects/somekey/resources')
+		self.assertEqual(actual, expected)
+
+	def test_get_url_staging (self):
+		config = {
+			'api': {
+				'project': 'somekey',
+				'token': 'sometoken',
+				'staging': True,
+			}
+		}
+		actual = get_url(config)
+		expected = ('https://app.localizestaging.com/v2.0/projects/somekey/resources')
 		self.assertEqual(actual, expected)
