@@ -86,7 +86,7 @@ class TestPush (unittest.TestCase):
             push(config)
     
     def test_push_with_wrong_format (self):
-        push_path = os.getcwd() + '/unit/test_files/fr.json'
+        push_path = os.getcwd() + '/unit/test_files/es.json'
         config = {
             'api': {
                 'project': test_config.project,

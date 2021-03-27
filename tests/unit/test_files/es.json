@@ -1,0 +1,19 @@
+{
+    "sourceLanguage": "en",
+    "targetLanguage": "fr",
+    "dictionary": [
+      {
+        "context": "",
+        "labels": [
+          "friday"
+        ],
+        "url": [],
+        "phraseKey": "",
+        "translation": {
+          "Checking done php": {
+            "value": "Once more asdffg"
+          }
+        }
+      }
+    ]
+  }
