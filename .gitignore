@@ -60,3 +60,6 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+#pull file created
+tests/unit/test_files/fr_pull.json
