@@ -65,28 +65,28 @@ class TestPull (unittest.TestCase):
         with self.assertRaises(KeyError):
             pull(config)
     
-    # def test_pull_correct_data (self):
-    #     pull_path = os.getcwd() + '/unit/test_files/fr_pull.json'
-    #     config = {
-    #         'api': {
-    #             'project': test_config.project,
-    #             'token': test_config.token,
-    #             test_config.environment: True,
-    #         },
-    #         'format': 'JSON',
-    #         'pull': {
-    #             'targets': [
-    #                 { 'fr' : pull_path },
-    #             ]
-    #         },
-    #         'type': 'phrase',
-    #     }
+    def test_pull_correct_data (self):
+        pull_path = os.getcwd() + '/unit/test_files/fr_pull.json'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'pull': {
+                'targets': [
+                    { 'fr' : pull_path },
+                ]
+            },
+            'type': 'phrase',
+        }
 
-    #     with self.assertRaises(SystemExit) as SystemExitMessage:
-    #         pull(config)
-    #         print(SystemExitMessage.exception.args[0])
-    #         expected = 'Successfully pulled 1 file(s) from Localize'
-    #         self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        with self.assertRaises(SystemExit) as SystemExitMessage:
+            pull(config)
+            print(SystemExitMessage.exception.args[0])
+            expected = 'Successfully pulled 1 file(s) from Localize'
+            self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
     def test_pull_incorrect_language_code (self):
         pull_path = os.getcwd() + '/unit/test_files/fr_pull.json'
