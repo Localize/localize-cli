@@ -158,8 +158,7 @@ def pull(conf):
 
     if r.status_code != 200:
       message = 'Something went wrong. Please contact support.'
-      responseStr = r.read()
-      res = json.loads(responseStr)
+      res = json.loads(r.text)
       if res['meta']['error']['message']:
         message = res['meta']['error']['message'] + ' for file ' + file
         skip =+ 1
