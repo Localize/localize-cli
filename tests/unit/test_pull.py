@@ -112,3 +112,28 @@ class TestPull (unittest.TestCase):
         actual = capturedOutput.getvalue()
         expected = 'Failed to pull xyz. This language does not exist in your project'
         self.assertTrue(expected in actual)
+    
+    def test_pull_unsupported_file_format (self):
+        pull_path = os.getcwd() + '/unit/test_files/fr_pull.strings'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'IOS_STRINGS',
+            'pull': {
+                'targets': [
+                    { 'xyz' : pull_path },
+                ]
+            },
+            'type': 'phrase',
+        }
+
+        capturedOutput = StringIO.StringIO()
+        sys.stdout = capturedOutput                 
+        pull(config)
+        sys.stdout = sys.__stdout__
+        actual = capturedOutput.getvalue()
+        expected = 'The format doesn\'t support export for web project'
+        self.assertTrue(expected in actual)
