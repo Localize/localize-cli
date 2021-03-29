@@ -93,29 +93,29 @@ class TestPush (unittest.TestCase):
             expected = 'Successfully pushed 1 file(s) to Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
         
-    def test_push_with_unsupported_format (self):
-        push_path = os.getcwd() + '/unit/test_files/fr.strings'
-        config = {
-            'api': {
-                'project': test_config.project,
-                'token': test_config.token,
-                test_config.environment: True,
-            },
-            'format': 'IOS_STRINGS',
-            'push': {
-                'sources': [
-                    { 
-                        'file' : push_path,
-                    },
-                ]
-            },
-            'type': 'phrase',
-        }
+    # def test_push_with_unsupported_format (self):
+    #     push_path = os.getcwd() + '/unit/test_files/fr.strings'
+    #     config = {
+    #         'api': {
+    #             'project': test_config.project,
+    #             'token': test_config.token,
+    #             test_config.environment: True,
+    #         },
+    #         'format': 'IOS_STRINGS',
+    #         'push': {
+    #             'sources': [
+    #                 { 
+    #                     'file' : push_path,
+    #                 },
+    #             ]
+    #         },
+    #         'type': 'phrase',
+    #     }
         
-        capturedOutput = StringIO.StringIO()
-        sys.stdout = capturedOutput                 
-        push(config)
-        sys.stdout = sys.__stdout__
-        actual = capturedOutput.getvalue()
-        expected = 'File format not supported for web project'
-        self.assertTrue(expected in actual)
+    #     capturedOutput = StringIO.StringIO()
+    #     sys.stdout = capturedOutput                 
+    #     push(config)
+    #     sys.stdout = sys.__stdout__
+    #     actual = capturedOutput.getvalue()
+    #     expected = 'File format not supported for web project'
+    #     self.assertTrue(expected in actual)
