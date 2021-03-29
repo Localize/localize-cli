@@ -94,7 +94,6 @@ class TestPush (unittest.TestCase):
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
         
     def test_push_with_incorrect_data (self):
-        push_path = os.getcwd() + '/unit/test_files/es.json'
         config = {
             'api': {
                 'project': test_config.project,
@@ -105,7 +104,7 @@ class TestPush (unittest.TestCase):
             'push': {
                 'sources': [
                     { 
-                        'file' : push_path,
+                        'file' : os.getcwd() + '/unit/test_files/es.json',
                     },
                 ]
             },
