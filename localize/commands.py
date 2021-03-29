@@ -17,7 +17,7 @@ def get_url(conf):
   if 'dev' in conf['api']:
     base_url='http://localhost:8086/v2.0/projects/'
   elif 'staging' in conf['api']:
-    base_url='https://app.localizestaging.com/v2.0/projects/'
+    base_url='https://api.localizestaging.com/v2.0/projects/'
   else:
     base_url='https://api.localizejs.com/v2.0/projects/'
 

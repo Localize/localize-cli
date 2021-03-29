@@ -39,5 +39,5 @@ class TestGetUrl (unittest.TestCase):
 			}
 		}
 		actual = get_url(config)
-		expected = ('https://app.localizestaging.com/v2.0/projects/somekey/resources')
+		expected = ('https://api.localizestaging.com/v2.0/projects/somekey/resources')
 		self.assertEqual(actual, expected)
