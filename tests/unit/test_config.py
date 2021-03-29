@@ -1,3 +1,3 @@
-project = 'BSsvLLx7IYwAG'
-token = '89fbb6eda7a576d3fc9b2d695e7e374c'
-environment = 'production' # dev or staging
+project = 'VMyRPp1JmQtzw'
+token = '1458212d8656f754668c134e17cf47f1'
+environment = 'staging' # dev or staging
