@@ -1,6 +1,6 @@
 {
     "sourceLanguage": "en",
-    "targetLanguage": "fr",
+    "targetLanguage": "es",
     "dictionary": [
       {
         "context": "",
@@ -8,7 +8,7 @@
           "php"
         ],
         "url": [],
-        "phraseKey": "",
+        "phraseKey": "test_phrase_key",
         "translation": {
           "CLI phrase": {
             "value": "CLI phrase"

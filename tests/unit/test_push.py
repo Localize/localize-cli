@@ -93,15 +93,15 @@ class TestPush (unittest.TestCase):
             expected = 'Successfully pushed 1 file(s) to Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
         
-    def test_push_with_unsupported_format (self):
-        push_path = os.getcwd() + '/unit/test_files/fr.strings'
+    def test_push_with_incorrect_data (self):
+        push_path = os.getcwd() + '/unit/test_files/es.json'
         config = {
             'api': {
                 'project': test_config.project,
                 'token': test_config.token,
                 test_config.environment: True,
             },
-            'format': 'IOS_STRINGS',
+            'format': 'JSON',
             'push': {
                 'sources': [
                     { 
@@ -117,5 +117,6 @@ class TestPush (unittest.TestCase):
         push(config)
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
-        expected = 'File format not supported for web project'
+        print(actual)
+        expected = 'Your file incorrectly contains 1 phrase(s) with phraseKeys.'
         self.assertTrue(expected in actual)
