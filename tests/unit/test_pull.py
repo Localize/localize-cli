@@ -124,7 +124,7 @@ class TestPull (unittest.TestCase):
             'format': 'IOS_STRINGS',
             'pull': {
                 'targets': [
-                    { 'xyz' : pull_path },
+                    { 'fr' : pull_path },
                 ]
             },
             'type': 'phrase',
@@ -135,6 +135,5 @@ class TestPull (unittest.TestCase):
         pull(config)
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
-        print(actual)
         expected = 'The format doesn\'t support export for web project'
         self.assertTrue(expected in actual)
