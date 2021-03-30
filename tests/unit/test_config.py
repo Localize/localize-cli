@@ -1,3 +1,3 @@
-project = 'h5Zbu46IKEpAm'
-token = '302ac1493be100c17580bb3c1993a4a9'
+project = 'VMyRPp1JmQtzw'
+token = '1458212d8656f754668c134e17cf47f1'
 environment = 'staging' # dev or staging
