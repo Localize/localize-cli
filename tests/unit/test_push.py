@@ -1,7 +1,6 @@
 import unittest
 import sys
 import os
-import StringIO
 import argparse
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
@@ -92,30 +91,4 @@ class TestPush (unittest.TestCase):
             print(SystemExitMessage.exception.args[0])
             expected = 'Successfully pushed 1 file(s) to Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
-        
-    def test_push_with_incorrect_data (self):
-        config = {
-            'api': {
-                'project': test_config.project,
-                'token': test_config.token,
-                test_config.environment: True,
-            },
-            'format': 'JSON',
-            'push': {
-                'sources': [
-                    { 
-                        'file' : os.getcwd() + '/unit/test_files/es.json',
-                    },
-                ]
-            },
-            'type': 'phrase',
-        }
-        
-        capturedOutput = StringIO.StringIO()
-        sys.stdout = capturedOutput                 
-        push(config)
-        sys.stdout = sys.__stdout__
-        actual = capturedOutput.getvalue()
-        print(actual)
-        expected = 'Your file incorrectly contains 1 phrase(s) with phraseKeys.'
-        self.assertTrue(expected in actual)
+
