@@ -88,7 +88,6 @@ class TestPush (unittest.TestCase):
                 
         with self.assertRaises(SystemExit) as SystemExitMessage:
             push(config)
-            print(SystemExitMessage.exception.args[0])
             expected = 'Successfully pushed 1 file(s) to Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
