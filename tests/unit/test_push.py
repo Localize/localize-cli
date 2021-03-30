@@ -104,7 +104,7 @@ class TestPush (unittest.TestCase):
             'push': {
                 'sources': [
                     { 
-                        'file' : os.getcwd() + '/unit/es.json',
+                        'file' : os.getcwd() + '/unit/test_files/es.json',
                     },
                 ]
             },
@@ -113,7 +113,7 @@ class TestPush (unittest.TestCase):
         
         capturedOutput = StringIO.StringIO()
         sys.stdout = capturedOutput                 
-        fn = push(config)
+        push(config)
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
         print(actual)
