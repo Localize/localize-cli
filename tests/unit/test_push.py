@@ -113,7 +113,7 @@ class TestPush (unittest.TestCase):
         
         capturedOutput = StringIO.StringIO()
         sys.stdout = capturedOutput                 
-        push(config)
+        fn = push(config)
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
         print(actual)
