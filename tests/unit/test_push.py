@@ -104,7 +104,7 @@ class TestPush (unittest.TestCase):
             'push': {
                 'sources': [
                     { 
-                        'file' : os.getcwd() + '/unit/test_files/es.json',
+                        'file' : os.getcwd() + '/unit/es.json',
                     },
                 ]
             },
