@@ -96,11 +96,11 @@ def push(conf):
     }
 
     r = requests.post(url, headers=headers, verify=False, data=data, files=content)
-
+    print(r.status_code)
     if r.status_code != 200:
       message = 'Something went wrong. Please contact support.'
       res = json.loads(r.text)
-
+      print(res['meta'])
       if res['meta']['error']['message']:
         message = res['meta']['error']['message'] + ' for file ' + source['file']
 
