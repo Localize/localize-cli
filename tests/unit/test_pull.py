@@ -23,7 +23,6 @@ class TestPull (unittest.TestCase):
         }
         with self.assertRaises(SystemExit) as SystemExitMessage:
             pull(config)
-            print(SystemExitMessage.exception.args[0])
             expected = 'Could not find any targets to pull. Please make sure your configuration is formed correctly.'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
@@ -84,7 +83,6 @@ class TestPull (unittest.TestCase):
 
         with self.assertRaises(SystemExit) as SystemExitMessage:
             pull(config)
-            print(SystemExitMessage.exception.args[0])
             expected = 'Successfully pulled 1 file(s) from Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
