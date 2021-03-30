@@ -85,7 +85,7 @@ def push(conf):
       skip =+ 1
       print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml')
       continue
-    
+
     content={ 'content': file }
 
     data={
