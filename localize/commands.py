@@ -86,7 +86,6 @@ def push(conf):
       print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml')
       continue
     
-    print(file)
     content={ 'content': file }
 
     data={
@@ -96,10 +95,8 @@ def push(conf):
       'format': format.replace('yml','yaml').upper()  # replacing 'yml' file format to 'yaml'
     }
 
-    print('*************')
     r = requests.post(url, headers=headers, verify=False, data=data, files=content)
 
-    print(r)
     if r.status_code != 200:
       message = 'Something went wrong. Please contact support.'
       res = json.loads(r.text)
