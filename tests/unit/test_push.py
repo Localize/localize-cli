@@ -100,7 +100,7 @@ class TestPush (unittest.TestCase):
                 'token': test_config.token,
                 test_config.environment: True,
             },
-            'format': 'IOS_STRINGS',
+            'format': 'JSON',
             'push': {
                 'sources': [
                     { 
@@ -113,7 +113,7 @@ class TestPush (unittest.TestCase):
         
         capturedOutput = StringIO.StringIO()
         sys.stdout = capturedOutput                 
-        push(config)
+        fn = push(config)
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
         print(actual)
