@@ -66,7 +66,7 @@ class TestPull (unittest.TestCase):
             pull(config)
     
     def test_pull_correct_data (self):
-        pull_path = os.getcwd() + '/unit/test_files/fr_pull.json'
+        pull_path = os.getcwd() + '/unit/fr_pull.json'
         config = {
             'api': {
                 'project': test_config.project,
@@ -89,7 +89,7 @@ class TestPull (unittest.TestCase):
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
     def test_pull_incorrect_language_code (self):
-        pull_path = os.getcwd() + '/unit/test_files/fr_pull.json'
+        pull_path = os.getcwd() + '/unit/fr_pull.json'
         config = {
             'api': {
                 'project': test_config.project,
@@ -114,7 +114,7 @@ class TestPull (unittest.TestCase):
         self.assertTrue(expected in actual)
     
     def test_pull_unsupported_file_format (self):
-        pull_path = os.getcwd() + '/unit/test_files/fr_pull.strings'
+        pull_path = os.getcwd() + '/unit/fr_pull.strings'
         config = {
             'api': {
                 'project': test_config.project,
