@@ -10,43 +10,43 @@ from localize.commands import *
 
 class TestPush (unittest.TestCase):
 
-    # def test_push_missing_token (self):
-    #     push_path = os.getcwd() + '/unit/test_files/fr.json'
-    #     config = {
-    #         'api': {
-    #             'project': test_config.project,
-    #             test_config.environment: True,
-    #         },
-    #         'format': 'JSON',
-    #         'push': {
-    #             'sources': [
-    #                 { 'file' : push_path },
-    #             ]
-    #         },
-    #         'type': 'phrase',
-    #     }
+    def test_push_missing_token (self):
+        push_path = os.getcwd() + '/unit/test_files/fr.json'
+        config = {
+            'api': {
+                'project': test_config.project,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'push': {
+                'sources': [
+                    { 'file' : push_path },
+                ]
+            },
+            'type': 'phrase',
+        }
 
-    #     with self.assertRaises(KeyError):
-    #         push(config)
+        with self.assertRaises(KeyError):
+            push(config)
 
-    # def test_push_missing_project (self):
-    #     push_path = os.getcwd() + '/unit/test_files/fr.json'
-    #     config = {
-    #         'api': {
-    #             'token': test_config.token,
-    #             test_config.environment: True,
-    #         },
-    #         'format': 'JSON',
-    #         'push': {
-    #             'sources': [
-    #                 { 'file' : push_path },
-    #             ]
-    #         },
-    #         'type': 'phrase',
-    #     }
+    def test_push_missing_project (self):
+        push_path = os.getcwd() + '/unit/test_files/fr.json'
+        config = {
+            'api': {
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'push': {
+                'sources': [
+                    { 'file' : push_path },
+                ]
+            },
+            'type': 'phrase',
+        }
 
-    #     with self.assertRaises(KeyError):
-    #         push(config)
+        with self.assertRaises(KeyError):
+            push(config)
 
     def test_push_missing_file (self):
         config = {
@@ -68,30 +68,30 @@ class TestPush (unittest.TestCase):
         expected = 'Successfully pushed 0 file(s) to Localize'
         self.assertTrue(expected in SystemExitMessage.exception.args[0])
     
-    # def test_push_with_correct_data (self):
-    #     push_path = os.getcwd() + '/unit/test_files/fr.json'
-    #     config = {
-    #         'api': {
-    #             'project': test_config.project,
-    #             'token': test_config.token,
-    #             test_config.environment: True,
-    #         },
-    #         'format': 'JSON',
-    #         'push': {
-    #             'sources': [
-    #                 { 
-    #                     'file' : push_path,
-    #                 },
-    #             ]
-    #         },
-    #         'type': 'phrase',
-    #     }
+    def test_push_with_correct_data (self):
+        push_path = os.getcwd() + '/unit/test_files/fr.json'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'push': {
+                'sources': [
+                    { 
+                        'file' : push_path,
+                    },
+                ]
+            },
+            'type': 'phrase',
+        }
                 
-    #     with self.assertRaises(SystemExit) as SystemExitMessage:
-    #         push(config)
-    #         print(SystemExitMessage.exception.args[0])
-    #         expected = 'Successfully pushed 1 file(s) to Localize'
-    #         self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        with self.assertRaises(SystemExit) as SystemExitMessage:
+            push(config)
+            print(SystemExitMessage.exception.args[0])
+            expected = 'Successfully pushed 1 file(s) to Localize'
+            self.assertTrue(expected in SystemExitMessage.exception.args[0])
         
     def test_push_with_incorrect_data (self):
         config = {
@@ -100,7 +100,7 @@ class TestPush (unittest.TestCase):
                 'token': test_config.token,
                 test_config.environment: True,
             },
-            'format': 'JSON',
+            'format': 'IOS_STRINGS',
             'push': {
                 'sources': [
                     { 
