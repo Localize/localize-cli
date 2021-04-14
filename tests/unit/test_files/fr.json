@@ -1,0 +1,19 @@
+{
+    "sourceLanguage": "en",
+    "targetLanguage": "fr",
+    "dictionary": [
+      {
+        "context": "",
+        "labels": [
+          "php"
+        ],
+        "url": [],
+        "phraseKey": "",
+        "translation": {
+          "CLI phrase": {
+            "value": "CLI phrase"
+          }
+        }
+      }
+    ]
+  }
