@@ -7,7 +7,7 @@ def readme():
 
 setup(
   name="localize",
-  version="1.0.9",
+  version="1.0.10",
   author='Localize',
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
@@ -15,9 +15,9 @@ setup(
   description='Command line utiltiy for Localize.',
   long_description=readme(),
   install_requires=[
-    "requests==2.21.0",
-    "colorama==0.4.1",
-    "pyyaml==5.3.1"
+    "requests==2.25.0",
+    "colorama==0.4.4",
+    "pyyaml==5.4.1"
   ],
   entry_points={
     'console_scripts': [
