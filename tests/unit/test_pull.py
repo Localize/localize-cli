@@ -1,7 +1,7 @@
 import unittest
 import sys
 import os
-import StringIO
+from io import StringIO
 import argparse
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
@@ -103,7 +103,7 @@ class TestPull (unittest.TestCase):
             'type': 'phrase',
         }
 
-        capturedOutput = StringIO.StringIO()
+        capturedOutput = StringIO()
         sys.stdout = capturedOutput                 
         pull(config)
         sys.stdout = sys.__stdout__
@@ -128,7 +128,7 @@ class TestPull (unittest.TestCase):
             'type': 'phrase',
         }
 
-        capturedOutput = StringIO.StringIO()
+        capturedOutput = StringIO()
         sys.stdout = capturedOutput                 
         pull(config)
         sys.stdout = sys.__stdout__

@@ -142,10 +142,10 @@ def pull(conf):
     else:
       format = conf['format']
 
-    file = target.values()[0]
+    file = list(target.values())[0]
 
     # Use the key as the language
-    language = target.keys()[0]
+    language =  list(target.keys())[0]
 
     data={
       'language': language,
