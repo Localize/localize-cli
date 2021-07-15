@@ -24,8 +24,8 @@ def get_url(conf):
   return base_url+conf['api']['project']+'/resources'
 
 def config():
-  project = raw_input('Localize project key [None]: ')
-  token = raw_input('Localize API token [None]: ')
+  project = input('Localize project key [None]: ')
+  token = input('Localize API token [None]: ')
 
   data = dict(
     api = dict(
