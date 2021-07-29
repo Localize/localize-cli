@@ -7,7 +7,7 @@ def readme():
 
 setup(
   name="localize",
-  version="1.0.10",
+  version="1.1.0",
   author='Localize',
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
@@ -31,6 +31,6 @@ setup(
   	"License :: OSI Approved :: MIT License",
   	"Operating System :: OS Independent",
   	"Topic :: Internet",
-  	"Programming Language :: Python :: 3.9.5"
+  	"Programming Language :: Python :: 3.9"
   ]
 )
