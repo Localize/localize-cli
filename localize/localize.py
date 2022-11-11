@@ -29,7 +29,7 @@ def get_configuration(args):
   return cfg
 
 def command(args):
-  print(args)
+
   # Load up the configuration or let the user know to run init
   if not args.command=='config':
     configuration = get_configuration(args)
