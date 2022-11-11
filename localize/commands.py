@@ -131,8 +131,12 @@ def pull(conf, profile):
     type = conf['type']
   else:
     type = 'phrase'
- 
-  for target in conf['pull']['targets']:
+
+  if profile and 'targets' in conf['pull'][profile]:
+    targetFiles = conf['pull'][profile]['targets']
+  else:
+    targetFiles = conf['pull']['targets']
+  for target in targetFiles:
     if not target:
       sys.exit(Fore.RED + 'Could not find target.' + Style.RESET_ALL)
 
