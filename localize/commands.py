@@ -113,8 +113,11 @@ def push(conf):
   else:
     sys.exit(Fore.GREEN + 'Successfully pushed ' + str(len(conf['push']['sources'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
 
-def pull(conf):
+def pull(conf, profile):
   errors = []
+
+  if profile and not 'targets' in conf['pull'][profile]:
+    sys.exit(Fore.RED + 'Could not find any targets to pull in the config set. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
 
   if not 'targets' in conf['pull']:
     sys.exit(Fore.RED + 'Could not find any targets to pull. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
@@ -122,11 +125,13 @@ def pull(conf):
   skip = 0
 
   # Assume pulling phrases unless specified in config_file
-  if 'type' in conf:
+  if profile and 'type' in conf['pull'][profile]:
+    type = conf['pull'][profile]['type']
+  elif 'type' in conf:
     type = conf['type']
   else:
     type = 'phrase'
-
+ 
   for target in conf['pull']['targets']:
     if not target:
       sys.exit(Fore.RED + 'Could not find target.' + Style.RESET_ALL)

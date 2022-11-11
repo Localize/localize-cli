@@ -29,6 +29,7 @@ def get_configuration(args):
   return cfg
 
 def command(args):
+  print(args)
   # Load up the configuration or let the user know to run init
   if not args.command=='config':
     configuration = get_configuration(args)
@@ -36,16 +37,17 @@ def command(args):
   if args.command=='push':
     push(configuration)
   elif args.command=='pull':
-    pull(configuration)
+    pull(configuration, args.config)
   elif args.command=='config':
     config()
   else:
-    sys.exit(Fore.RED + 'Not a valid command! Did you mean config, push, or pull?' + Style.RESET_ALL)
+    sys.exit(Fore.RED + 'Not a valid command! Check. Did you mean config, push, or pull?' + Style.RESET_ALL)
 
 # Handle any command line arguments
 def parse_args():
   p = argparse.ArgumentParser(description='Localize')
   p.add_argument('command', nargs='?', help='an integer for the accumulator')
+  p.add_argument('-config', '--config') 
 
   args = p.parse_args()
 
