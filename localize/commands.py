@@ -115,6 +115,8 @@ def push(conf):
 
 def pull(conf, profile):
   errors = []
+  if profile and not profile in config['pull']:
+    sys.exit(Fore.RED + 'Could not matching config. Please make sure you specified the right name in --config.' + Style.RESET_ALL)
 
   if profile and not 'targets' in conf['pull'][profile]:
     sys.exit(Fore.RED + 'Could not find any targets to pull in the config set. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
