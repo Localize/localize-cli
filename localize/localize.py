@@ -41,7 +41,7 @@ def command(args):
   elif args.command=='config':
     config()
   else:
-    sys.exit(Fore.RED + 'Not a valid command! Check. Did you mean config, push, or pull?' + Style.RESET_ALL)
+    sys.exit(Fore.RED + 'Not a valid command! Did you mean config, push, or pull?' + Style.RESET_ALL)
 
 # Handle any command line arguments
 def parse_args():
