@@ -3,13 +3,11 @@
 import sys
 import yaml
 import os
-import argparse
-import time
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning  # suppressing 'Unverified HTTPS request' msg
 import json
 
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)       # suppressing 'Unverified HTTPS request' msg
 
@@ -99,7 +97,7 @@ def push(conf, profile):
       file = open(source['file'], 'rb')
     except (IOError, OSError):
       skip =+ 1
-      print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml')
+      print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml' + Style.RESET_ALL)
       continue
 
     content={ 'content': file }
@@ -200,7 +198,7 @@ def pull(conf, profile):
               file.write(chunk)
       except IOError:
         skip =+ 1
-        print(Fore.RED + 'Skipping export of ' + language + '. No target file path in the localize cli config.yml')
+        print(Fore.RED + 'Skipping export of ' + language + '. No target file path in the localize cli config.yml' + Style.RESET_ALL)
 
   # If there are any errors display them to the user
   if errors:
