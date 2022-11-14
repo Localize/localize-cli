@@ -129,9 +129,8 @@ class TestPull (unittest.TestCase):
                 'my-phrase' : {
                     'type': 'phrase',
                     'targets': [
-                        { 'fr' : pull_path },
+                        { 'fr' : pull_path, 'format': 'CSV' },
                     ],
-                    'format': 'CSV'
                 }
 
             },
@@ -154,7 +153,6 @@ class TestPull (unittest.TestCase):
             'pull': {
                 'my-phrase' : {
                     'type': 'phrase',
-                    'format': 'CSV'
                 }
             },
             'type': 'phrase',
