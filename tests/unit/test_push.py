@@ -242,3 +242,35 @@ class TestPush (unittest.TestCase):
         expected = 'language code you provided is not found for file'
         self.assertTrue(expected in actual)
 
+    def test_push_unsupported_format (self):
+        pull_path = os.getcwd() + '/unit/test_files/fr.strings'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'push': {
+                'sources': [
+                    { 'fr' : pull_path },
+                ],
+                'my-phrase' : {
+                    'type': 'phrase',
+                    'sources': [
+                        { 'file' : pull_path, 'format': 'strings' },
+                    ],
+                }
+
+            },
+            'type': 'glossary',
+        }
+
+        capturedOutput = StringIO()
+        sys.stdout = capturedOutput                 
+        push(config, 'my-phrase')
+        sys.stdout = sys.__stdout__
+        actual = capturedOutput.getvalue()
+        expected = 'ValidationError: "format" must be one of'
+        self.assertTrue(expected in actual)
+
