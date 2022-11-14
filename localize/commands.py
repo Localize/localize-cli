@@ -76,7 +76,7 @@ def push(conf, profile):
   else:
     type = 'phrase'
 
-  if profile and 'targets' in conf['push'][profile]:
+  if profile and 'sources' in conf['push'][profile]:
     sourceFiles = conf['push'][profile]['sources']
   else:
     sourceFiles = conf['push']['sources']
