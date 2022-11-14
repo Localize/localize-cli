@@ -35,7 +35,7 @@ def command(args):
     configuration = get_configuration(args)
 
   if args.command=='push':
-    push(configuration)
+    push(configuration, args.config)
   elif args.command=='pull':
     pull(configuration, args.config)
   elif args.command=='config':
@@ -47,7 +47,7 @@ def command(args):
 def parse_args():
   p = argparse.ArgumentParser(description='Localize')
   p.add_argument('command', nargs='?', help='an integer for the accumulator')
-  p.add_argument('-config', '--config') 
+  p.add_argument('-c', '--config') 
 
   args = p.parse_args()
 

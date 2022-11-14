@@ -55,17 +55,33 @@ def config():
   with open(config_file, 'w+') as out:
     out.write(yaml.dump(data, default_flow_style=False))
 
-def push(conf):
+def push(conf, profile):
   errors = []
   skip = 0
 
+  if profile and not profile in conf['push']:
+    sys.exit(Fore.RED + 'Could not find matching config. Please make sure you specified the right name in --config.' + Style.RESET_ALL)
+
+  if profile and not 'sources' in conf['push'][profile]:
+    sys.exit(Fore.RED + 'Could not find any sources to push in the config set. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
+
+  if not 'sources' in conf['push']:
+    sys.exit(Fore.RED + 'Could not find any sources to push. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
+
   # Assume pushing phrases unless specified in config_file
-  if 'type' in conf:
+  if profile and 'type' in conf['push'][profile]:
+    type = conf['push'][profile]['type']
+  elif 'type' in conf:
     type = conf['type']
   else:
     type = 'phrase'
 
-  for source in conf['push']['sources']:
+  if profile and 'targets' in conf['push'][profile]:
+    sourceFiles = conf['push'][profile]['sources']
+  else:
+    sourceFiles = conf['push']['sources']
+
+  for source in sourceFiles:
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
 
@@ -115,7 +131,7 @@ def push(conf):
 
 def pull(conf, profile):
   errors = []
-  if profile and not profile in config['pull']:
+  if profile and not profile in conf['pull']:
     sys.exit(Fore.RED + 'Could not matching config. Please make sure you specified the right name in --config.' + Style.RESET_ALL)
 
   if profile and not 'targets' in conf['pull'][profile]:
