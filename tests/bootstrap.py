@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import unittest
-import sys
 from unit.test_utils import TestUtils
 from unit.test_push import TestPush
 from unit.test_get_url import TestGetUrl

@@ -1,7 +1,6 @@
 import unittest
 import sys
 import os
-import argparse
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
@@ -26,7 +25,7 @@ class TestPush (unittest.TestCase):
         }
 
         with self.assertRaises(KeyError):
-            push(config)
+            push(config, '')
 
     def test_push_missing_project (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
@@ -45,7 +44,7 @@ class TestPush (unittest.TestCase):
         }
 
         with self.assertRaises(KeyError):
-            push(config)
+            push(config, '')
 
     def test_push_missing_file (self):
         config = {
@@ -63,7 +62,7 @@ class TestPush (unittest.TestCase):
         }
 
         with self.assertRaises(SystemExit) as SystemExitMessage:
-            push(config)
+            push(config, '')
         expected = 'Successfully pushed 0 file(s) to Localize'
         self.assertTrue(expected in SystemExitMessage.exception.args[0])
     
@@ -87,7 +86,7 @@ class TestPush (unittest.TestCase):
         }
                 
         with self.assertRaises(SystemExit) as SystemExitMessage:
-            push(config)
+            push(config, '')
             expected = 'Successfully pushed 1 file(s) to Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 

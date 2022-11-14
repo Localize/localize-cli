@@ -2,7 +2,6 @@ import unittest
 import sys
 import os
 from io import StringIO
-import argparse
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
@@ -22,7 +21,7 @@ class TestPull (unittest.TestCase):
             'type': 'phrase',
         }
         with self.assertRaises(SystemExit) as SystemExitMessage:
-            pull(config)
+            pull(config, '')
             expected = 'Could not find any targets to pull. Please make sure your configuration is formed correctly.'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
@@ -43,7 +42,7 @@ class TestPull (unittest.TestCase):
         }
 
         with self.assertRaises(KeyError):
-            push(config)
+            push(config, '')
     
     def test_pull_missing_project (self):
         pull_path = os.getcwd() + '/unit/test_files/fr_pull.json'
@@ -62,7 +61,7 @@ class TestPull (unittest.TestCase):
         }
 
         with self.assertRaises(KeyError):
-            pull(config)
+            pull(config, '')
     
     def test_pull_correct_data (self):
         pull_path = os.getcwd() + '/unit/fr_pull.json'
@@ -82,7 +81,7 @@ class TestPull (unittest.TestCase):
         }
 
         with self.assertRaises(SystemExit) as SystemExitMessage:
-            pull(config)
+            pull(config, '')
             expected = 'Successfully pulled 1 file(s) from Localize'
             self.assertTrue(expected in SystemExitMessage.exception.args[0])
 
@@ -97,7 +96,7 @@ class TestPull (unittest.TestCase):
             'format': 'JSON',
             'pull': {
                 'targets': [
-                    { 'xyz' : pull_path },
+                    { 'ta' : pull_path },
                 ]
             },
             'type': 'phrase',
@@ -105,10 +104,11 @@ class TestPull (unittest.TestCase):
 
         capturedOutput = StringIO()
         sys.stdout = capturedOutput                 
-        pull(config)
+        pull(config, '')
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
-        expected = 'Failed to pull xyz. This language does not exist in your project'
+        print(actual)
+        expected = 'Failed to pull ta. This language does not exist in your project'
         self.assertTrue(expected in actual)
     
     def test_pull_unsupported_file_format (self):
@@ -130,7 +130,7 @@ class TestPull (unittest.TestCase):
 
         capturedOutput = StringIO()
         sys.stdout = capturedOutput                 
-        pull(config)
+        pull(config, '')
         sys.stdout = sys.__stdout__
         actual = capturedOutput.getvalue()
         expected = 'The format doesn\'t support export for web project'
