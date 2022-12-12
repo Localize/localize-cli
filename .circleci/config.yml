@@ -11,7 +11,7 @@ jobs:
           command: pip install --user -r requirements.txt
       - run:
           name: Run tests
-          command: python3.9 tests/bootstrap.py
+          command: python3.9 tests/bootstrap.py TestUtils
 workflows:
   version: 2
   build_and_test:
