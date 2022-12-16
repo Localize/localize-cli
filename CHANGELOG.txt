@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2022-12-16
+## Added
+- Added config proiles to allow user to configure multiple push and pull scenarios [#29](https://github.com/Localize/localize-cli/pull/29).
+
 ## [1.1.2] - 2021-07-29
 ## Added
 - Bumped version due to tarball not compiling [#28](https://github.com/Localize/localize-cli/pull/28).
