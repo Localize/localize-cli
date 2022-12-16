@@ -1,7 +1,6 @@
 import unittest
 import sys
 import os
-import argparse
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
 

@@ -3,13 +3,11 @@
 import sys
 import yaml
 import os
-import argparse
-import time
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning  # suppressing 'Unverified HTTPS request' msg
 import json
 
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)       # suppressing 'Unverified HTTPS request' msg
 
@@ -55,17 +53,33 @@ def config():
   with open(config_file, 'w+') as out:
     out.write(yaml.dump(data, default_flow_style=False))
 
-def push(conf):
+def push(conf, profile):
   errors = []
   skip = 0
 
+  if profile and not profile in conf['push']:
+    sys.exit(Fore.RED + 'Could not find matching config. Please make sure you specified the right name in --config.' + Style.RESET_ALL)
+
+  if profile and not 'sources' in conf['push'][profile]:
+    sys.exit(Fore.RED + 'Could not find any sources to push in the config set. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
+
+  if not 'sources' in conf['push']:
+    sys.exit(Fore.RED + 'Could not find any sources to push. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
+
   # Assume pushing phrases unless specified in config_file
-  if 'type' in conf:
+  if profile and 'type' in conf['push'][profile]:
+    type = conf['push'][profile]['type']
+  elif 'type' in conf:
     type = conf['type']
   else:
     type = 'phrase'
 
-  for source in conf['push']['sources']:
+  if profile and 'sources' in conf['push'][profile]:
+    sourceFiles = conf['push'][profile]['sources']
+  else:
+    sourceFiles = conf['push']['sources']
+
+  for source in sourceFiles:
     url = get_url(conf)
     headers={ 'Authorization': 'Bearer ' + conf['api']['token'] }
 
@@ -83,7 +97,7 @@ def push(conf):
       file = open(source['file'], 'rb')
     except (IOError, OSError):
       skip =+ 1
-      print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml')
+      print(Fore.RED + 'Skipping import of ' + language + '. No target file path in the localize cli config.yml' + Style.RESET_ALL)
       continue
 
     content={ 'content': file }
@@ -113,8 +127,13 @@ def push(conf):
   else:
     sys.exit(Fore.GREEN + 'Successfully pushed ' + str(len(conf['push']['sources'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
 
-def pull(conf):
+def pull(conf, profile):
   errors = []
+  if profile and not profile in conf['pull']:
+    sys.exit(Fore.RED + 'Could not find matching config. Please make sure you specified the right name in --config.' + Style.RESET_ALL)
+
+  if profile and not 'targets' in conf['pull'][profile]:
+    sys.exit(Fore.RED + 'Could not find any targets to pull in the config set. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
 
   if not 'targets' in conf['pull']:
     sys.exit(Fore.RED + 'Could not find any targets to pull. Please make sure your configuration is formed correctly.' + Style.RESET_ALL)
@@ -122,12 +141,18 @@ def pull(conf):
   skip = 0
 
   # Assume pulling phrases unless specified in config_file
-  if 'type' in conf:
+  if profile and 'type' in conf['pull'][profile]:
+    type = conf['pull'][profile]['type']
+  elif 'type' in conf:
     type = conf['type']
   else:
     type = 'phrase'
 
-  for target in conf['pull']['targets']:
+  if profile and 'targets' in conf['pull'][profile]:
+    targetFiles = conf['pull'][profile]['targets']
+  else:
+    targetFiles = conf['pull']['targets']
+  for target in targetFiles:
     if not target:
       sys.exit(Fore.RED + 'Could not find target.' + Style.RESET_ALL)
 
@@ -173,7 +198,7 @@ def pull(conf):
               file.write(chunk)
       except IOError:
         skip =+ 1
-        print(Fore.RED + 'Skipping export of ' + language + '. No target file path in the localize cli config.yml')
+        print(Fore.RED + 'Skipping export of ' + language + '. No target file path in the localize cli config.yml' + Style.RESET_ALL)
 
   # If there are any errors display them to the user
   if errors:
