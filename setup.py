@@ -12,7 +12,7 @@ setup(
   author_email='support@localizejs.com',
   url='https://help.localizejs.com/docs/localize-cli',
   packages=find_packages(),
-  description='Command line utiltiy for Localize.',
+  description='Command line utility for Localize.',
   long_description=readme(),
   install_requires=[
     "requests==2.25.0",
