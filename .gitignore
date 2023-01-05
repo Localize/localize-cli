@@ -63,4 +63,4 @@ target/
 
 #pull file created
 tests/unit/test_files/fr_pull.json
-tests/unit/test_files/fr_pull.csv
+tests/unit/test_files/fr_pull.csv.git/
