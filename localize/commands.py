@@ -125,7 +125,7 @@ def push(conf, profile):
     for error in errors:
       print(Fore.RED+error+Style.RESET_ALL)
   else:
-    sys.exit(Fore.GREEN + 'Successfully pushed ' + str(len(conf['push']['sources'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
+    print(Fore.GREEN + 'Successfully pushed ' + str(len(conf['push']['sources'])-skip) + ' file(s) to Localize!' + Style.RESET_ALL)
 
 def pull(conf, profile):
   errors = []
