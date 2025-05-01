@@ -5,6 +5,7 @@ from io import StringIO
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
+import requests
 
 
 class TestPull (unittest.TestCase):
@@ -236,3 +237,54 @@ class TestPull (unittest.TestCase):
         actual = capturedOutput.getvalue()
         expected = 'The format doesn\'t support export for web project'
         self.assertTrue(expected in actual)
+
+    def test_pull_norwegian_language_code(self):
+        """Test that the Norwegian language code 'no' is handled correctly"""
+        pull_path = os.getcwd() + '/unit/test_files/no.json'
+        config = {
+            'api': {
+                'project': test_config.project,
+                'token': test_config.token,
+                test_config.environment: True,
+            },
+            'format': 'JSON',
+            'pull': {
+                'targets': [
+                    { 'no': pull_path },
+                ]
+            },
+            'type': 'phrase',
+        }
+
+        # Create a mock response
+        mock_response = type('Response', (), {
+            'status_code': 200,
+            'iter_content': lambda chunk_size: [b'{"test": "data"}']
+        })
+
+        # Save the original requests.get
+        original_get = requests.get
+
+        try:
+            # Mock requests.get to return our mock response
+            requests.get = lambda url, headers, verify, params, stream: mock_response
+
+            # Capture the parameters passed to requests.get
+            captured_params = {}
+            def mock_get(url, headers, verify, params, stream):
+                captured_params.update(params)
+                return mock_response
+            requests.get = mock_get
+
+            # Run the pull command
+            pull(config, '')
+
+            # Verify the language parameter was set correctly
+            self.assertEqual(captured_params.get('language'), 'no')
+            self.assertEqual(captured_params.get('type'), 'phrase')
+            self.assertEqual(captured_params.get('format'), 'JSON')
+            self.assertEqual(captured_params.get('filter'), 'has-active-translations')
+
+        finally:
+            # Restore the original requests.get
+            requests.get = original_get

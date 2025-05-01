@@ -170,7 +170,7 @@ def pull(conf, profile):
     file = list(target.values())[0]
 
     # Use the key as the language
-    language =  list(target.keys())[0]
+    language =  str(list(target.keys())[0])
 
     data={
       'language': language,
