@@ -15,7 +15,7 @@ setup(
   description='Command line utility for Localize.',
   long_description=readme(),
   install_requires=[
-    "requests==2.32.0",
+    "requests==2.32.4",
     "colorama==0.4.4",
     "pyyaml==6.0.2"
   ],
