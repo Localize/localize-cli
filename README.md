@@ -1,7 +1,9 @@
 localize-cli
 ============
 
-This package provides a unified command line interface to Localize.
+This python package provides a unified command line interface to Localize (https://pypi.org/project/localize/).
+
+See https://pypistats.org/packages/localize for details of usage
 
 Platforms
 ---------
