@@ -1,13 +1,44 @@
 import unittest
+import json
 import sys
 import os
 from io import StringIO
+from unittest.mock import patch
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
 
 
+class FakeResponse:
+    def __init__(self, status_code=200, message='', content=b'{}'):
+        self.status_code = status_code
+        self.text = json.dumps({'meta': {'error': {'message': message}}})
+        self.content = content
+
+    def iter_content(self, chunk_size=1024):
+        yield self.content
+
+
 class TestPull (unittest.TestCase):
+    def setUp(self):
+        self.requests_get = patch('localize.commands.requests.get', side_effect=self.fake_get)
+        self.requests_get.start()
+
+    def tearDown(self):
+        self.requests_get.stop()
+
+    @staticmethod
+    def fake_get(url, headers, verify, params, stream):
+        language = params['language']
+        format = params['format']
+        if language == 'ta':
+            return FakeResponse(400, 'Failed to pull ta. This language does not exist in your project')
+        if language == 'xyz':
+            return FakeResponse(400, 'language code you provided is not found')
+        if format == 'IOS_STRINGS':
+            return FakeResponse(400, "The format doesn't support export for web project")
+        return FakeResponse()
+
     def test_pull_missing_pull_targets (self):
         config = {
             'api': {
