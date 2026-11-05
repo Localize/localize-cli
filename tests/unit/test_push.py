@@ -1,13 +1,40 @@
 import unittest
+import json
 import sys
 import os
 from io import StringIO
+from unittest.mock import patch
 import unit.test_config as test_config
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from localize.commands import *
 
 
+class FakeResponse:
+    def __init__(self, status_code=200, message=''):
+        self.status_code = status_code
+        self.text = json.dumps({'meta': {'error': {'message': message}}})
+
+
 class TestPush (unittest.TestCase):
+
+    def setUp(self):
+        self.requests_post = patch('localize.commands.requests.post', side_effect=self.fake_post)
+        self.requests_post.start()
+
+    def tearDown(self):
+        self.requests_post.stop()
+
+    @staticmethod
+    def fake_post(url, headers, verify, data, files):
+        language = data['language']
+        format = data['format']
+        if language == 'ta':
+            return FakeResponse(400, 'Target language is not supported by the project')
+        if language == 'wrong_name':
+            return FakeResponse(400, 'language code you provided is not found')
+        if format == 'STRINGS':
+            return FakeResponse(400, 'ValidationError: "format" must be one of')
+        return FakeResponse()
 
     def test_push_missing_token (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
@@ -62,10 +89,11 @@ class TestPush (unittest.TestCase):
             'type': 'phrase',
         }
 
-        with self.assertRaises(SystemExit) as SystemExitMessage:
+        capturedOutput = StringIO()
+        with patch('sys.stdout', capturedOutput):
             push(config, '')
         expected = 'Successfully pushed 0 file(s) to Localize'
-        self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        self.assertIn(expected, capturedOutput.getvalue())
     
     def test_push_with_correct_data (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
@@ -86,10 +114,11 @@ class TestPush (unittest.TestCase):
             'type': 'phrase',
         }
                 
-        with self.assertRaises(SystemExit) as SystemExitMessage:
+        capturedOutput = StringIO()
+        with patch('sys.stdout', capturedOutput):
             push(config, '')
-            expected = 'Successfully pushed 1 file(s) to Localize'
-            self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        expected = 'Successfully pushed 1 file(s) to Localize'
+        self.assertIn(expected, capturedOutput.getvalue())
 
     def test_push_non_existent_file (self):
         pull_path = os.getcwd() + '/unit/test_files/xyz.csv'
@@ -115,10 +144,11 @@ class TestPush (unittest.TestCase):
             'type': 'glossary',
         }
         
-        with self.assertRaises(SystemExit) as SystemExitMessage:
+        capturedOutput = StringIO()
+        with patch('sys.stdout', capturedOutput):
             push(config, 'my-phrase')
-            expected = 'Skipping import of xyz. No target file path in the localize cli config.yml'
-            self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        expected = 'Skipping import of xyz. No target file path in the localize cli config.yml'
+        self.assertIn(expected, capturedOutput.getvalue())
 
     def test_push_with_custom_profile_test1 (self):
         push_path = os.getcwd() + '/unit/test_files/fr.json'
@@ -144,10 +174,11 @@ class TestPush (unittest.TestCase):
             'type': 'glossary',
         }
 
-        with self.assertRaises(SystemExit) as SystemExitMessage:
+        capturedOutput = StringIO()
+        with patch('sys.stdout', capturedOutput):
             push(config, 'my-glossary')
-            expected = 'Successfully pushed 1 file(s) to Localize'
-            self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        expected = 'Successfully pushed 1 file(s) to Localize'
+        self.assertIn(expected, capturedOutput.getvalue())
 
     def test_push_with_custom_profile_test2 (self):
         pull_path = os.getcwd() + '/unit/test_files/fr.csv'
@@ -173,10 +204,11 @@ class TestPush (unittest.TestCase):
             'type': 'glossary',
         }
 
-        with self.assertRaises(SystemExit) as SystemExitMessage:
+        capturedOutput = StringIO()
+        with patch('sys.stdout', capturedOutput):
             push(config, 'my-phrase')
-            expected = 'Successfully pushed 1 file(s) to Localize'
-            self.assertTrue(expected in SystemExitMessage.exception.args[0])
+        expected = 'Successfully pushed 1 file(s) to Localize'
+        self.assertIn(expected, capturedOutput.getvalue())
 
     def test_push_incorrect_language_code (self):
         pull_path = os.getcwd() + '/unit/test_files/ta.csv'

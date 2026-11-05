@@ -7,11 +7,12 @@ from localize.commands import *
 
 class TestLanguageFormat (unittest.TestCase):
     def test_correct_language_format (self):
-        actual = check_and_return_lang_format('/unit/fr.json', 'push')
+        actual = check_and_return_lang_format('fr.json', 'push')
         expected = 'fr'
         self.assertEqual(actual, expected)
     
     def test_incorrect_language_format (self):
-        actual = check_and_return_lang_format('/unit/fr', 'push')
+        with self.assertRaises(SystemExit) as error:
+            check_and_return_lang_format('fr', 'push')
         expected = 'Wrong filename for'
-        self.assertTrue(expected in actual)
+        self.assertIn(expected, str(error.exception))

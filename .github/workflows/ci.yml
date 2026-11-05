@@ -25,4 +25,4 @@ jobs:
         run: python -m pip install --user -r requirements.txt
 
       - name: Run tests
-        run: python tests/bootstrap.py TestUtils
+        run: python tests/bootstrap.py
