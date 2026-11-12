@@ -17,7 +17,7 @@ setup(
   install_requires=[
     "requests==2.33.0",
     "colorama==0.4.4",
-    "pyyaml==6.0.2"
+    "pyyaml==6.0.3"
   ],
   entry_points={
     'console_scripts': [
