@@ -16,7 +16,7 @@ setup(
   long_description=readme(),
   install_requires=[
     "requests==2.33.0",
-    "colorama==0.4.4",
+    "colorama==0.4.6",
     "pyyaml==6.0.2"
   ],
   entry_points={
